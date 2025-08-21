@@ -1,93 +1,121 @@
 ---
 import { SITE_TITLE } from '../consts';
+const images = [
+  "https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(1).jpeg",
+  "https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(10).jpeg",
+  "https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(4).jpeg",
+  "https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(5).jpeg",
+  "https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(6).jpeg",
+  "https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(7).jpeg",
+  "https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(8).jpeg",
+];
 ---
 
 <header>
-	<nav>
-		<h2>
-			<a href="/">
-				<img src="https://files.alkesduaputry.com/Logo%20alkesduaputry%202025.png" alt={SITE_TITLE} class="header-logo" />
-			</a>
-		</h2>
-	</nav>
+  <nav>
+    <h2>
+      <a href="/">
+        <img src="https://files.alkesduaputry.com/Logo%20alkesduaputry%202025.png" alt={SITE_TITLE} class="header-logo" />
+      </a>
+    </h2>
+  </nav>
 </header>
+
+<div class="slider-container">
+  <button class="prev" aria-label="Slide sebelumnya">&#10094;</button>
+  <div class="slider">
+    {images.map((src, idx) => (
+      <div class="slide">
+        <img src={src} alt={`Kegiatan Gudang Alkesduaputry ${idx + 1}`} loading="lazy" />
+      </div>
+    ))}
+  </div>
+  <button class="next" aria-label="Slide berikutnya">&#10095;</button>
+</div>
+
 <style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
+  header {
+    margin: 0;
+    padding: 0 1em;
+    background: white;
+    box-shadow: 0 2px 8px rgba(var(--black), 5%);
+  }
+  h2 {
+    margin: 0;
+    font-size: 1em;
+  }
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	.header-logo {
-		height: 50px;
-		width: auto;
-		object-fit: contain;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
+  h2 a,
+  h2 a.active {
+    text-decoration: none;
+  }
+  .header-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  nav a {
+    padding: 1em 0.5em;
+    color: var(--black);
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
+  }
+
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+    margin-top: 1em;
+  }
+  .slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+  .slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .prev,
+  .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 0.5em;
+    cursor: pointer;
+  }
+  .prev {
+    left: 0.5em;
+  }
+  .next {
+    right: 0.5em;
+  }
 </style>
-```Saya akan membantu menghapus semua ikon media sosial dan link navigasi, serta menyederhanakan header hanya dengan logo. Berikut perubahannya:
 
-```astro name=src/components/Header.astro
----
-import { SITE_TITLE } from '../consts';
----
+<script is:inline>
+  const slider = document.querySelector('.slider');
+  const nextBtn = document.querySelector('.next');
+  const prevBtn = document.querySelector('.prev');
 
-<header>
-	<nav>
-		<h2>
-			<a href="/">
-				<img src="https://files.alkesduaputry.com/Logo%20alkesduaputry%202025.png" alt={SITE_TITLE} class="header-logo" />
-			</a>
-		</h2>
-	</nav>
-</header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
+  nextBtn.addEventListener('click', () => {
+    slider.scrollBy({ left: slider.clientWidth, behavior: 'smooth' });
+  });
+  prevBtn.addEventListener('click', () => {
+    slider.scrollBy({ left: -slider.clientWidth, behavior: 'smooth' });
+  });
+</script>
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	.header-logo {
-		height: 50px;
-		width: auto;
-		object-fit: contain;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.5em 0;
-	}
-	nav a {
-		text-decoration: none;
-	}
-</style>
