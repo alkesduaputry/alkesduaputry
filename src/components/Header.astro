@@ -104,6 +104,26 @@ const images = [
   .next {
     right: 0.5em;
   }
+
+  @media (min-width: 768px) {
+    .slider-container {
+      overflow: visible;
+    }
+    .slider {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0.5em;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    .slide {
+      flex: none;
+    }
+    .prev,
+    .next {
+      display: none;
+    }
+  }
 </style>
 
 <script is:inline>
