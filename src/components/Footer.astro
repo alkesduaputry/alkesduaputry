@@ -1,4 +1,6 @@
+---
 const today = new Date();
+---
 
 <footer>
   &copy; {today.getFullYear()} alkesduaputry.com
@@ -55,8 +57,10 @@ const today = new Date();
   .map-container {
     position: relative;
     overflow: hidden;
-    padding-bottom: 56.25%; /* Rasio 16:9 agar map tetap proporsional:contentReference[oaicite:3]{index=3} */
-    margin-top: 1em;
+    padding-bottom: 56.25%; /* Rasio 16:9 agar map tetap proporsional */
+    width: 100%;
+    max-width: 600px;
+    margin: 1em auto;
   }
   .map-container iframe {
     position: absolute;
@@ -70,6 +74,7 @@ const today = new Date();
   @media (max-width: 480px) {
     .map-container {
       padding-bottom: 75%; /* 4:3 ratio misalnya */
+      max-width: 320px;
     }
   }
 
