@@ -3,8 +3,17 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
----
+import 'swiper/swiper-bundle.css';
 
+// ID Video Shorts
+const videos = [
+  "QEplavoNeKQ?si=Rj8egC8yjkfkfUZl",
+  "9Y07_NbjpQY",
+  "EFWElFzyjZk",
+  "KGTV2GGft_w",
+  "6MkQKB5JPZ4",
+];
+---
 <!doctype html>
 <html lang="id">
 	<head>
@@ -75,27 +84,51 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					font-size: 1.6rem;
 				}
 			}
+			/* Swiper style for mobile */
+			.swiper-container {
+				width: 100%;
+				max-width: 400px;
+				margin: 2rem auto 1rem auto;
+			}
+			.swiper-slide {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.swiper-slide iframe {
+				width: 100%;
+				height: 220px;
+				border-radius: 12px;
+			}
+			@media (max-width: 500px) {
+				.swiper-slide iframe {
+					height: 180px;
+				}
+				.swiper-container {
+					max-width: 100vw;
+					padding: 0 3vw;
+				}
+			}
 		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>Selamat Datang di Alkes Duaputry</h1>
-			<p>
-				Distributor terpercaya untuk segala macam alat kesehatan Anda. Kami berkomitmen menyediakan produk berkualitas tinggi dengan harga terjangkau, sesuai dengan standar yang ditetapkan oleh Kementerian Kesehatan Indonesia.
-			</p>
-			<p>
-				Baik untuk kebutuhan rumah sakit, klinik, maupun perorangan, Alkes Duaputry adalah solusi Anda untuk mendapatkan peralatan medis terbaik. Kepercayaan dan kepuasan Anda adalah prioritas utama kami.
-			</p>
-			
-			<h2>Produk Unggulan Kami</h2>
-			<p>Kami menyediakan berbagai macam alat kesehatan, termasuk:</p>
-			<ul>
-				<li>Tempat Tidur Pasien (berbagai jenis)</li>
-				<li>Peralatan Obgyn dan Kebidanan</li>
-				<li>Inkubator Bayi dan Perlengkapan Neonatal</li>
-				<li>Dan ratusan produk lainnya yang dapat Anda lihat di katalog kami.</li>
-			</ul>
+		</head>
+		<body>
+			<Header />
+			<main>
+				<h1>Selamat Datang di Alkes Duaputry</h1>
+				<p>
+					Distributor terpercaya untuk segala macam alat kesehatan Anda. Kami berkomitmen menyediakan produk berkualitas tinggi dengan harga terjangkau, sesuai dengan standar yang ditetapkan oleh Kementerian Kesehatan Republik Indonesia.
+				</p>
+				<p>
+					Baik untuk kebutuhan rumah sakit, klinik, maupun perorangan, Alkes Duaputry adalah solusi Anda untuk mendapatkan peralatan medis terbaik. Kepercayaan dan kepuasan Anda adalah prioritas utama kami.
+				</p>
+				<h2>Produk Unggulan Kami</h2>
+				<p>Kami menyediakan berbagai macam alat kesehatan, termasuk:</p>
+				<ul>
+					<li>Tempat Tidur Pasien (berbagai jenis)</li>
+					<li>Peralatan Obgyn dan Kebidanan</li>
+					<li>Inkubator Bayi dan Perlengkapan Neonatal</li>
+					<li>Dan ratusan produk lainnya yang dapat Anda lihat di katalog kami.</li>
+				</ul>
                         <p>
                                 <a href="https://files.alkesduaputry.com/katalog-2025.pdf" class="button" target="_blank" rel="noopener noreferrer">
                                         Download Katalog Terbaru 2025
@@ -104,45 +137,94 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
                         <h2>Katalog 2025</h2>
                         <iframe src="https://files.alkesduaputry.com/katalog-2025.pdf" style="width:100%;height:600px;" title="Katalog 2025"></iframe>
 
-			<h2>Lokasi Kami</h2>
-			<p>
-				Kunjungi kami langsung di:
-				<br>
-				<strong>Tarikolot, Kec. Citeureup, Kabupaten Bogor, Jawa Barat 16811</strong>
-			</p>
+				<!-- Video Slider Section -->
+				<h2 style="text-align:center; margin-top:2rem;">Video Produk Alkes</h2>
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						{videos.map(id => (
+							<div class="swiper-slide">
+								<iframe
+								width="100%"
+								height="220"
+								style="border-radius:12px;"
+								src={`https://www.youtube.com/embed/${id.split("?")[0]}`}
+								frameborder="0"
+								allowfullscreen
+								></iframe>
+							</div>
+						))}
+					</div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+				<ul style="padding-left:1rem;">
+					{videos.map(id => (
+						<li>
+							<a href={`https://www.youtube.com/shorts/${id.split("?")[0]}`} target="_blank" rel="noopener noreferrer">
+								https://www.youtube.com/shorts/{id.split("?")[0]}
+							</a>
+						</li>
+					))}
+				</ul>
+				<script type="module">
+					import Swiper from 'swiper/bundle';
+					if (typeof window !== 'undefined') {
+						const swiper = new Swiper('.swiper-container', {
+							slidesPerView: 1,
+							spaceBetween: 10,
+							pagination: {
+								el: '.swiper-pagination',
+								clickable: true,
+							},
+							navigation: {
+								nextEl: '.swiper-button-next',
+								prevEl: '.swiper-button-prev',
+							},
+							loop: true,
+						});
+					}
+				</script>
+
+				<h2>Lokasi Kami</h2>
+				<p>
+					Kunjungi kami langsung di:
+					<br>
+					<strong>Tarikolot, Kec. Citeureup, Kabupaten Bogor, Jawa Barat 16811</strong>
+				</p>
                         <p>
                                 Atau hubungi kami melalui WhatsApp untuk konsultasi gratis mengenai kebutuhan alat kesehatan Anda. Kami melayani 24 jam sehari, 7 hari seminggu.
                         </p>
                         <h2>Mengapa Menggunakan Alat Kesehatan yang Standar?</h2>
                         <p>
-                                Dalam memilih alat kesehatan, terutama yang akan digunakan di rumah sakit tentu tidak bisa sembarangan. Alat-alat kesehatan tersebut harus memenuhi standar dan kriteria yang sudah ditetapkan oleh Kementerian Kesehatan Indonesia. Tentu ada alasan mengapa penggunaan alat kesehatan untuk rumah sakit harus sesuai standar. Berikut beberapa alasannya:
+                                Dalam memilih alat kesehatan, terutama yang akan digunakan di rumah sakit tentu tidak bisa sembarangan. Alat-alat kesehatan tersebut harus memenuhi standar dan kriteria tertentu agar aman dan nyaman digunakan.
                         </p>
                         <h3>1. Menyangkut Keselamatan Pasien</h3>
                         <p>
-                                Alat-alat kesehatan yang akan digunakan di sebuah rumah sakit sudah barang tentu berkaitan dengan pasien, baik berkaitan langsung maupun tidak langsung. Alat kesehatan yang sesuai standar tentu dapat berfungsi dengan baik, sehingga dapat digunakan untuk menyembuhkan pasien. Sebagai ilustrasi adalah sebuah tempat tidur pasien.
+                                Alat-alat kesehatan yang akan digunakan di sebuah rumah sakit sudah barang tentu berkaitan dengan pasien, baik berkaitan langsung maupun tidak langsung. Alat kesehatan yang digunakan harus benar-benar terjamin mutunya agar tidak membahayakan pasien.
                         </p>
                         <p>
-                                Tempat tidur pasien harus sesuai standar tertentu agar pasien dapat nyaman untuk beristirahat. Ketika pasien merasa nyaman untuk beristirahat akan sangat membantu pasien untuk segera sembuh. Dengan menggunakan tempat tidur yang sesuai standar juga akan mempermudah para tenaga kesehatan dalam melakukan pengecekan secara berkala untuk memonitor perkembangan kesehatan pasien.
+                                Tempat tidur pasien harus sesuai standar tertentu agar pasien dapat nyaman untuk beristirahat. Ketika pasien merasa nyaman untuk beristirahat akan sangat membantu proses penyembuhan pasien.
                         </p>
                         <h3>2. Membantu Tenaga Kesehatan dalam Bekerja</h3>
                         <p>
-                                Alat-alat kesehatan yang sesuai standar juga akan sangat membantu tenaga kesehatan dalam bekerja. Tenaga kesehatan yang terbantu pekerjaannya dengan menggunakan alat-alat kesehatan yang sesuai standar juga secara tidak langsung akan meningkatkan peluang kesembuhan pasien.
+                                Alat-alat kesehatan yang sesuai standar juga akan sangat membantu tenaga kesehatan dalam bekerja. Tenaga kesehatan yang terbantu pekerjaannya dengan menggunakan alat-alat kesehatan yang tepat akan lebih maksimal dalam memberikan pelayanan.
                         </p>
                         <p>
-                                Alat-alat kesehatan yang sudah memenuhi standar tentu memudahkan para tenaga kesehatan dalam bekerja. Sebagai contoh, sebuah lampu tindakan yang digunakan untuk melakukan diagnosis dan tindakan operasi sederhana harus memenuhi tingkat pencahayaan tertentu.
+                                Alat-alat kesehatan yang sudah memenuhi standar tentu memudahkan para tenaga kesehatan dalam bekerja. Sebagai contoh, sebuah lampu tindakan yang digunakan untuk melakukan operasi atau tindakan medis lainnya. 
                         </p>
                         <p>
-                                Tingkat pencahayaan dari lampu tindakan ini dapat membantu dokter untuk melakukan diagnosis dengan tepat. Kesalahan dalam melakukan diagnosis dapat berakibat fatal karena dapat menyebabkan kesalahan pengambilan keputusan dan tindakan lanjutan dari dokter.
+                                Tingkat pencahayaan dari lampu tindakan ini dapat membantu dokter untuk melakukan diagnosis dengan tepat. Kesalahan dalam melakukan diagnosis dapat berakibat fatal bagi keselamatan pasien.
                         </p>
                         <h3>3. Menjaga Kualitas Rumah Sakit</h3>
                         <p>
-                                Penggunaan alat-alat kesehatan yang sesuai standar juga akan memberikan nilai tambah dan menjaga kualitas dari rumah sakit. Rumah sakit yang menggunakan alat-alat kesehatan yang sesuai standar tentu dipercaya lebih berkualitas, sehingga akan ada banyak pasien yang mempercayakan pengobatannya pada rumah sakit tersebut.
+                                Penggunaan alat-alat kesehatan yang sesuai standar juga akan memberikan nilai tambah dan menjaga kualitas dari rumah sakit. Rumah sakit yang menggunakan alat-alat kesehatan standar tentu akan lebih dipercaya oleh masyarakat.
                         </p>
                         <p>
-                                Alat-alat kesehatan yang sesuai standar akan membuat para tenaga kesehatan bekerja dengan lebih maksimal karena sangat terbantu. Sehingga akan ada banyak pasien yang mendapat tindakan dengan tepat. Tindakan yang tepat ini akan membuat pasien sembuh dan merasa puas dengan pelayanan dari rumah sakit.
+                                Alat-alat kesehatan yang sesuai standar akan membuat para tenaga kesehatan bekerja dengan lebih maksimal karena sangat terbantu. Sehingga akan ada banyak pasien yang tertolong dengan alat-alat kesehatan yang tepat.
                         </p>
                         <p>
-                                Sehingga secara tidak langsung tingkat kepercayaan masyarakat akan tumbuh. Untuk mendapatkan alat-alat kesehatan yang sesuai standar dan berkualitas, bisa dengan mencari pada distributor alat kesehatan yang sudah berpengalaman.
+                                Sehingga secara tidak langsung tingkat kepercayaan masyarakat akan tumbuh. Untuk mendapatkan alat-alat kesehatan yang sesuai standar dan berkualitas, bisa dengan menghubungi kami.
                         </p>
                         <p>
                                 <a href="https://wa.me/6285780199904?text=Salam%20saya%20ingin%20berkonsultasi%20mengenai%20Alat%20kesehatan%20yang%20di%20jual%20di%20alkesduaputry.com"
@@ -150,7 +232,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
                                         Hubungi Kami di WhatsApp
                                 </a>
                         </p>
-		</main>
-		<Footer />
-	</body>
-</html>
+				</main>
+				<Footer />
+		</body>
+	</html>
