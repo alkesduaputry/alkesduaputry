@@ -3,7 +3,6 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import 'swiper/swiper-bundle.css';
 
 // ID Video Shorts
 const videos = [
@@ -84,32 +83,85 @@ const videos = [
 					font-size: 1.6rem;
 				}
 			}
-			/* Swiper style for mobile */
-			.swiper-container {
-				width: 100%;
-				max-width: 400px;
-				margin: 2rem auto 1rem auto;
-			}
-			.swiper-slide {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			.swiper-slide iframe {
-				width: 100%;
-				height: 220px;
-				border-radius: 12px;
-			}
-			@media (max-width: 500px) {
-				.swiper-slide iframe {
-					height: 180px;
-				}
-				.swiper-container {
-					max-width: 100vw;
-					padding: 0 3vw;
-				}
-			}
-		</style>
+                        /* Video slider */
+                        .video-slider {
+                                position: relative;
+                                width: 100%;
+                                max-width: 400px;
+                                margin: 2rem auto 1rem auto;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                        }
+                        .video-track {
+                                position: relative;
+                                overflow: hidden;
+                                flex: 1 1 auto;
+                                border-radius: 12px;
+                                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                                background: #000;
+                        }
+                        .video-slide {
+                                display: none;
+                                width: 100%;
+                        }
+                        .video-slide[data-active] {
+                                display: block;
+                        }
+                        .video-slide iframe {
+                                width: 100%;
+                                height: 220px;
+                                border-radius: 12px;
+                                border: none;
+                        }
+                        @media (max-width: 500px) {
+                                .video-slide iframe {
+                                        height: 180px;
+                                }
+                                .video-slider {
+                                        max-width: 100vw;
+                                        padding: 0 3vw;
+                                }
+                        }
+                        .video-nav {
+                                background: #1dab19;
+                                border: none;
+                                color: #fff;
+                                width: 2.5rem;
+                                height: 2.5rem;
+                                border-radius: 50%;
+                                display: grid;
+                                place-items: center;
+                                cursor: pointer;
+                                transition: background-color 0.3s ease;
+                        }
+                        .video-nav:hover {
+                                background: #168a14;
+                        }
+                        .video-nav:disabled {
+                                background: rgba(0, 0, 0, 0.2);
+                                cursor: not-allowed;
+                        }
+                        .video-dots {
+                                display: flex;
+                                justify-content: center;
+                                gap: 0.5rem;
+                                margin: 0.75rem 0 0;
+                        }
+                        .video-dot {
+                                width: 0.75rem;
+                                height: 0.75rem;
+                                border-radius: 50%;
+                                border: none;
+                                background: rgba(29, 171, 25, 0.35);
+                                cursor: pointer;
+                                transition: transform 0.2s ease, background-color 0.2s ease;
+                        }
+                        .video-dot[data-active] {
+                                background: #1dab19;
+                                transform: scale(1.1);
+                        }
+                </style>
 		</head>
 		<body>
 			<Header />
@@ -139,25 +191,39 @@ const videos = [
 
 				<!-- Video Slider Section -->
 				<h2 style="text-align:center; margin-top:2rem;">Video Produk Alkes</h2>
-				<div class="swiper-container">
-					<div class="swiper-wrapper">
-						{videos.map(id => (
-							<div class="swiper-slide">
-								<iframe
-								width="100%"
-								height="220"
-								style="border-radius:12px;"
-								src={`https://www.youtube.com/embed/${id.split("?")[0]}`}
-								frameborder="0"
-								allowfullscreen
-								></iframe>
-							</div>
-						))}
-					</div>
-					<div class="swiper-pagination"></div>
-					<div class="swiper-button-prev"></div>
-					<div class="swiper-button-next"></div>
-				</div>
+                                <div class="video-slider" data-slider>
+                                        <button class="video-nav" type="button" aria-label="Video sebelumnya" data-prev>
+                                                &#10094;
+                                        </button>
+                                        <div class="video-track" data-track>
+                                                {videos.map((id, index) => (
+                                                        <div class="video-slide" data-slide data-active={index === 0}>
+                                                                <iframe
+                                                                loading="lazy"
+                                                                src={`https://www.youtube.com/embed/${id.split("?")[0]}`}
+                                                                title={`Video produk Alkes Duaputry ${index + 1}`}
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                allowfullscreen
+                                                                ></iframe>
+                                                        </div>
+                                                ))}
+                                        </div>
+                                        <button class="video-nav" type="button" aria-label="Video selanjutnya" data-next>
+                                                &#10095;
+                                        </button>
+                                </div>
+                                <div class="video-dots" role="tablist">
+                                        {videos.map((_, index) => (
+                                                <button
+                                                class="video-dot"
+                                                type="button"
+                                                aria-label={`Tampilkan video ${index + 1}`}
+                                                data-dot
+                                                data-index={index}
+                                                data-active={index === 0}
+                                                ></button>
+                                        ))}
+                                </div>
 				<ul style="padding-left:1rem;">
 					{videos.map(id => (
 						<li>
@@ -167,24 +233,46 @@ const videos = [
 						</li>
 					))}
 				</ul>
-				<script type="module">
-					import Swiper from 'swiper/bundle';
-					if (typeof window !== 'undefined') {
-						const swiper = new Swiper('.swiper-container', {
-							slidesPerView: 1,
-							spaceBetween: 10,
-							pagination: {
-								el: '.swiper-pagination',
-								clickable: true,
-							},
-							navigation: {
-								nextEl: '.swiper-button-next',
-								prevEl: '.swiper-button-prev',
-							},
-							loop: true,
-						});
-					}
-				</script>
+                                <script is:inline>
+                                        if (typeof window !== 'undefined') {
+                                                const slider = document.querySelector('[data-slider]');
+                                                if (slider) {
+                                                        const slides = Array.from(slider.querySelectorAll('[data-slide]'));
+                                                        const dots = Array.from(document.querySelectorAll('[data-dot]'));
+                                                        const prev = slider.querySelector('[data-prev]');
+                                                        const next = slider.querySelector('[data-next]');
+                                                        let activeIndex = 0;
+
+                                                        const update = index => {
+                                                                activeIndex = (index + slides.length) % slides.length;
+                                                                slides.forEach((slide, slideIndex) => {
+                                                                        if (slideIndex === activeIndex) {
+                                                                                slide.setAttribute('data-active', '');
+                                                                        } else {
+                                                                                slide.removeAttribute('data-active');
+                                                                        }
+                                                                });
+                                                                dots.forEach((dot, dotIndex) => {
+                                                                        if (dotIndex === activeIndex) {
+                                                                                dot.setAttribute('data-active', '');
+                                                                        } else {
+                                                                                dot.removeAttribute('data-active');
+                                                                        }
+                                                                });
+                                                                prev.disabled = slides.length <= 1;
+                                                                next.disabled = slides.length <= 1;
+                                                        };
+
+                                                        prev.addEventListener('click', () => update(activeIndex - 1));
+                                                        next.addEventListener('click', () => update(activeIndex + 1));
+                                                        dots.forEach((dot, index) => {
+                                                                dot.addEventListener('click', () => update(index));
+                                                        });
+
+                                                        update(activeIndex);
+                                                }
+                                        }
+                                </script>
 
 				<h2>Lokasi Kami</h2>
 				<p>
