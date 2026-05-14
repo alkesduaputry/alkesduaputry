@@ -8,7 +8,7 @@
 	let { children } = $props();
 
 	const catalogWhatsapp =
-		'https://api.whatsapp.com/send?phone=6281289808868&text=Halo,%20saya%20ingin%20minta%20katalog%20produk%20AlkesDuaPutry.';
+		'https://api.whatsapp.com/send?phone=6285780199904&text=Halo,%20saya%20ingin%20minta%20katalog%20produk%20AlkesDuaPutry.';
 </script>
 
 <svelte:head>

@@ -22,7 +22,7 @@
 			`Alokasi Budget: ${budget}`
 		];
 
-		const url = `https://api.whatsapp.com/send?phone=6281289808868&text=${encodeURIComponent(lines.join('\n'))}`;
+		const url = `https://api.whatsapp.com/send?phone=6285780199904&text=${encodeURIComponent(lines.join('\n'))}`;
 		window.open(url, '_blank', 'noopener,noreferrer');
 	}
 </script>

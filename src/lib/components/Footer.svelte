@@ -47,8 +47,8 @@
 
 		<div class="contact">
 			<h3>Kontak</h3>
-			<a href={whatsappBase} target="_blank" rel="noreferrer">+62 812-8980-8868</a>
-			<a href="https://api.whatsapp.com/send?phone=6281779580688" target="_blank" rel="noreferrer">+62 817-7958-0688</a>
+			<a href={whatsappBase} target="_blank" rel="noreferrer">+62 857-8019-9904</a>
+			<a href={whatsappBase} target="_blank" rel="noreferrer">+62 857-8019-9904</a>
 			<a href="mailto:adm88.mmf@gmail.com">adm88.mmf@gmail.com</a>
 			<a href="mailto:fnc88.mmf@gmail.com">fnc88.mmf@gmail.com</a>
 			<div class="socials">

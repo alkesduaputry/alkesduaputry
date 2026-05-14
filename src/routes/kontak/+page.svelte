@@ -23,7 +23,7 @@
 			</div>
 			<div>
 				<strong>WhatsApp</strong>
-				<p>+62 812-8980-8868</p>
+				<p>+62 857-8019-9904</p>
 			</div>
 			<div>
 				<strong>Email</strong>
