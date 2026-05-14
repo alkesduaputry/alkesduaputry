@@ -10,6 +10,7 @@
 		background: string;
 		accent: string;
 		visualLabel: string;
+		image: string;
 		secondaryText: string;
 	};
 
@@ -22,6 +23,7 @@
 				'radial-gradient(circle at top left, rgba(232,160,32,0.22), transparent 30%), linear-gradient(135deg, #0a5c8a 0%, #073f60 70%)',
 			accent: 'Bed pasien premium siap demo dan training',
 			visualLabel: 'Distribusi alat kesehatan resmi',
+			image: 'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(8).jpeg',
 			secondaryText: 'Lihat Produk'
 		},
 		{
@@ -32,6 +34,7 @@
 				'linear-gradient(135deg, rgba(10,92,138,0.95), rgba(7,63,96,0.92)), repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 12px, transparent 12px 24px)',
 			accent: 'Paket hemat untuk kebutuhan bangsal dan laboratorium',
 			visualLabel: 'Bundling produk dan perlengkapan',
+			image: 'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(7).jpeg',
 			secondaryText: 'Konsultasi Bundling'
 		},
 		{
@@ -42,6 +45,7 @@
 				'radial-gradient(circle at bottom right, rgba(232,160,32,0.24), transparent 28%), linear-gradient(135deg, #0d689b 0%, #073f60 78%)',
 			accent: 'S-IDAK dan CDAKB siap ditunjukkan saat dibutuhkan',
 			visualLabel: 'Izin edar dan sertifikasi',
+			image: 'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(4).jpeg',
 			secondaryText: 'Lihat Sertifikasi'
 		}
 	];
@@ -125,8 +129,11 @@
 						<div class="device">
 							<div class="badge">AKL & AKD</div>
 							<div class="art">
-								<img class="hero-logo" src={brandLogo} alt="Logo AlkesDuaPutry" />
-								<img class="hero-icon" src={brandIcon} alt="Icon AlkesDuaPutry" />
+								<img class="hero-photo" src={slide.image} alt={slide.visualLabel} />
+								<div class="hero-overlay">
+									<img class="hero-logo" src={brandLogo} alt="Logo AlkesDuaPutry" />
+									<img class="hero-icon" src={brandIcon} alt="Icon AlkesDuaPutry" />
+								</div>
 							</div>
 							<div class="meta">
 								<strong>{slide.visualLabel}</strong>
@@ -152,16 +159,16 @@
 
 	.slider {
 		position: relative;
-		min-height: 600px;
+		min-height: 860px;
 	}
 
 	.slide {
 		position: absolute;
 		inset: 0;
-		padding: 2rem;
+		padding: 1.35rem 1.1rem 4.6rem;
 		display: grid;
-		align-items: center;
-		gap: 2rem;
+		align-content: start;
+		gap: 1.25rem;
 		border-radius: 2rem;
 		opacity: 0;
 		pointer-events: none;
@@ -193,9 +200,9 @@
 	h1 {
 		margin: 1rem 0;
 		font-family: 'Fraunces', serif;
-		font-size: clamp(2.35rem, 5vw, 4.6rem);
+		font-size: clamp(2rem, 8vw, 4.6rem);
 		line-height: 1.02;
-		max-width: 10ch;
+		max-width: 11ch;
 	}
 
 	p {
@@ -217,10 +224,11 @@
 	}
 
 	.device {
-		width: min(100%, 380px);
-		padding: 1.4rem;
+		width: 100%;
+		max-width: 380px;
+		padding: 1rem;
 		display: grid;
-		gap: 1rem;
+		gap: 0.8rem;
 		border-radius: 1.8rem;
 		background: rgba(255, 255, 255, 0.1);
 		border: 1px solid rgba(255, 255, 255, 0.16);
@@ -239,28 +247,43 @@
 	}
 
 	.art {
-		min-height: 210px;
-		display: grid;
-		place-items: center;
-		padding: 1.25rem;
-		background:
-			linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)),
-			radial-gradient(circle at center, rgba(255, 255, 255, 0.22), transparent 55%);
+		position: relative;
+		min-height: 240px;
+		overflow: hidden;
 		border-radius: 1.4rem;
 	}
 
+	.hero-photo {
+		width: 100%;
+		height: 100%;
+		min-height: 240px;
+		object-fit: cover;
+		filter: saturate(1.05) contrast(1.02);
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		align-content: end;
+		padding: 1.25rem;
+		background:
+			linear-gradient(180deg, rgba(7, 63, 96, 0.08) 0%, rgba(7, 63, 96, 0.74) 100%),
+			linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+	}
+
 	.hero-logo {
-		width: min(100%, 280px);
+		width: min(100%, 220px);
 		height: auto;
 		filter: drop-shadow(0 14px 28px rgba(7, 63, 96, 0.2));
 	}
 
 	.hero-icon {
 		position: absolute;
-		right: 1rem;
-		bottom: 1rem;
-		width: 74px;
-		height: 74px;
+		right: 0.85rem;
+		bottom: 0.85rem;
+		width: 58px;
+		height: 58px;
 		border-radius: 999px;
 		box-shadow: 0 12px 28px rgba(7, 63, 96, 0.3);
 		background: rgba(255, 255, 255, 0.96);
@@ -275,7 +298,7 @@
 	.meta span {
 		margin-top: 0.2rem;
 		color: rgba(255, 255, 255, 0.78);
-		font-size: 0.95rem;
+		font-size: 0.88rem;
 	}
 
 	.dots {
@@ -302,9 +325,41 @@
 	}
 
 	@media (min-width: 768px) {
+		.slider {
+			min-height: 600px;
+		}
+
 		.slide {
 			padding: 3rem;
 			grid-template-columns: 1.2fr 0.8fr;
+			align-items: center;
+			align-content: normal;
+			gap: 2rem;
+		}
+
+		.device {
+			padding: 1.4rem;
+			gap: 1rem;
+		}
+
+		.art,
+		.hero-photo {
+			min-height: 210px;
+		}
+
+		.hero-logo {
+			width: min(100%, 280px);
+		}
+
+		.hero-icon {
+			right: 1rem;
+			bottom: 1rem;
+			width: 74px;
+			height: 74px;
+		}
+
+		.meta span {
+			font-size: 0.95rem;
 		}
 	}
 </style>

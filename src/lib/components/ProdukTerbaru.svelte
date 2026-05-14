@@ -1,5 +1,11 @@
 <script lang="ts">
 	import { latestProducts, whatsappBase } from '$lib/data/products';
+
+	const previewImages = [
+		'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(1).jpeg',
+		'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(7).jpeg',
+		'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(4).jpeg'
+	];
 </script>
 
 <section class="section">
@@ -7,10 +13,10 @@
 		<span class="eyebrow">Produk Terbaru</span>
 		<h2 class="section-title">Hospital bed pasien dengan konfigurasi manual dan elektrik.</h2>
 		<div class="grid">
-			{#each latestProducts as product}
+			{#each latestProducts as product, index}
 				<article class="card product">
 					<div class="preview">
-						<span>🏥</span>
+						<img src={previewImages[index % previewImages.length]} alt={product.name} />
 						<div class="badge">{product.badge}</div>
 					</div>
 					<h3>{product.name} ({product.sku})</h3>
@@ -47,10 +53,15 @@
 		background:
 			linear-gradient(135deg, rgba(10, 92, 138, 0.1), rgba(232, 160, 32, 0.14)),
 			var(--color-off-white);
+		overflow: hidden;
 	}
 
-	.preview span {
-		font-size: 4.4rem;
+	.preview img {
+		width: 100%;
+		height: 100%;
+		min-height: 180px;
+		object-fit: cover;
+		border-radius: 1.4rem;
 	}
 
 	.badge {
