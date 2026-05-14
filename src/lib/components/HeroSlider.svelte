@@ -2,6 +2,7 @@
 	import brandIcon from '$lib/assets/brand-icon.png';
 	import brandLogo from '$lib/assets/brand-logo.png';
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { whatsappBase } from '$lib/data/products';
 
 	type Slide = {
@@ -68,7 +69,7 @@
 			return;
 		}
 
-		const active = slider.querySelector('.slide.is-active');
+		const active = slider.querySelector('.slide');
 		const lines = active?.querySelectorAll('.animate-line');
 		if (!lines || lines.length === 0) {
 			return;
@@ -107,45 +108,59 @@
 <section class="hero section">
 	<div class="container">
 		<div class="slider" bind:this={slider}>
-			{#each slides as slide, index}
+			{#key activeSlide}
 				<div
-					class:is-active={activeSlide === index}
+					in:fade={{ duration: 400 }}
+					out:fade={{ duration: 250 }}
 					class="slide"
-					style={`background:${slide.background};`}
+					style={`background:${slides[activeSlide].background};`}
 				>
 					<div class="copy">
 						<span class="eyebrow animate-line">Medical Supplier Jakarta & Bekasi</span>
-						<h1 class="animate-line">{slide.title}</h1>
-						<p class="animate-line">{slide.description}</p>
+						<h1 class="animate-line">{slides[activeSlide].title}</h1>
+						<p class="animate-line">{slides[activeSlide].description}</p>
 						<div class="button-row animate-line">
 							<a class="btn btn-accent" href={whatsappBase} target="_blank" rel="noreferrer">
 								Hubungi Kami
 							</a>
-							<a class="btn btn-outline" href="/produk/hospital-bed">{slide.secondaryText}</a>
+							<a class="btn btn-outline" href="/produk/hospital-bed">
+								{slides[activeSlide].secondaryText}
+							</a>
 						</div>
-						<div class="mini-note animate-line">{slide.accent}</div>
+						<div class="mini-note animate-line">{slides[activeSlide].accent}</div>
 					</div>
 					<div class="visual" aria-hidden="true">
-						<div class="device">
+						<div class="visual-frame">
 							<div class="badge">AKL & AKD</div>
 							<div class="art">
-								<img class="hero-photo" src={slide.image} alt={slide.visualLabel} />
+								<img
+									class="hero-photo"
+									src={slides[activeSlide].image}
+									alt={slides[activeSlide].visualLabel}
+								/>
 								<div class="hero-overlay">
-									<img class="hero-logo" src={brandLogo} alt="Logo AlkesDuaPutry" />
-									<img class="hero-icon" src={brandIcon} alt="Icon AlkesDuaPutry" />
+									<div class="hero-badge">
+										<img class="hero-logo" src={brandLogo} alt="Logo AlkesDuaPutry" />
+										<img class="hero-icon" src={brandIcon} alt="Icon AlkesDuaPutry" />
+									</div>
+									<div class="meta">
+										<strong>{slides[activeSlide].visualLabel}</strong>
+										<span>PT Mitra Medika Farma • Sertifikasi siap verifikasi</span>
+									</div>
 								</div>
-							</div>
-							<div class="meta">
-								<strong>{slide.visualLabel}</strong>
-								<span>PT Mitra Medika Farma • Sertifikasi siap verifikasi</span>
 							</div>
 						</div>
 					</div>
 				</div>
-			{/each}
+			{/key}
 			<div class="dots">
 				{#each slides as _, index}
-					<button type="button" aria-label={`Slide ${index + 1}`} class:active={activeSlide === index} onclick={() => setSlide(index)}></button>
+					<button
+						type="button"
+						aria-label={`Slide ${index + 1}`}
+						class:active={activeSlide === index}
+						onclick={() => setSlide(index)}
+					></button>
 				{/each}
 			</div>
 		</div>
@@ -159,32 +174,16 @@
 
 	.slider {
 		position: relative;
-		min-height: 860px;
 	}
 
 	.slide {
-		position: absolute;
-		inset: 0;
-		padding: 1.35rem 1.1rem 4.6rem;
+		padding: 1.35rem 1.1rem;
 		display: grid;
-		align-content: start;
 		gap: 1.25rem;
 		border-radius: 2rem;
-		opacity: 0;
-		pointer-events: none;
-		transform: scale(0.985);
-		transition:
-			opacity 0.55s ease,
-			transform 0.55s ease;
 		overflow: hidden;
 		color: var(--color-white);
 		box-shadow: 0 28px 70px rgba(7, 63, 96, 0.22);
-	}
-
-	.slide.is-active {
-		opacity: 1;
-		pointer-events: auto;
-		transform: scale(1);
 	}
 
 	.copy {
@@ -200,7 +199,7 @@
 	h1 {
 		margin: 1rem 0;
 		font-family: 'Fraunces', serif;
-		font-size: clamp(2rem, 8vw, 4.6rem);
+		font-size: clamp(2rem, 9vw, 4.6rem);
 		line-height: 1.02;
 		max-width: 11ch;
 	}
@@ -210,6 +209,12 @@
 		max-width: 58ch;
 		color: rgba(255, 255, 255, 0.86);
 		line-height: 1.8;
+	}
+
+	.button-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.8rem;
 	}
 
 	.mini-note {
@@ -223,16 +228,16 @@
 		justify-items: center;
 	}
 
-	.device {
+	.visual-frame {
 		width: 100%;
-		max-width: 380px;
-		padding: 1rem;
+		max-width: 620px;
+		padding: 0.9rem;
 		display: grid;
 		gap: 0.8rem;
-		border-radius: 1.8rem;
-		background: rgba(255, 255, 255, 0.1);
-		border: 1px solid rgba(255, 255, 255, 0.16);
-		backdrop-filter: blur(10px);
+		border-radius: 1.9rem;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.06));
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		backdrop-filter: blur(14px);
 	}
 
 	.badge {
@@ -248,15 +253,15 @@
 
 	.art {
 		position: relative;
-		min-height: 240px;
 		overflow: hidden;
 		border-radius: 1.4rem;
+		aspect-ratio: 4 / 4.7;
+		background: rgba(255, 255, 255, 0.08);
 	}
 
 	.hero-photo {
 		width: 100%;
 		height: 100%;
-		min-height: 240px;
 		object-fit: cover;
 		filter: saturate(1.05) contrast(1.02);
 	}
@@ -265,25 +270,30 @@
 		position: absolute;
 		inset: 0;
 		display: grid;
-		align-content: end;
+		align-content: space-between;
 		padding: 1.25rem;
 		background:
 			linear-gradient(180deg, rgba(7, 63, 96, 0.08) 0%, rgba(7, 63, 96, 0.74) 100%),
 			linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
 	}
 
+	.hero-badge {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
 	.hero-logo {
-		width: min(100%, 220px);
+		width: min(100%, 210px);
 		height: auto;
 		filter: drop-shadow(0 14px 28px rgba(7, 63, 96, 0.2));
 	}
 
 	.hero-icon {
-		position: absolute;
-		right: 0.85rem;
-		bottom: 0.85rem;
-		width: 58px;
-		height: 58px;
+		width: 54px;
+		height: 54px;
+		flex: 0 0 auto;
 		border-radius: 999px;
 		box-shadow: 0 12px 28px rgba(7, 63, 96, 0.3);
 		background: rgba(255, 255, 255, 0.96);
@@ -295,6 +305,10 @@
 		display: block;
 	}
 
+	.meta strong {
+		font-size: 1rem;
+	}
+
 	.meta span {
 		margin-top: 0.2rem;
 		color: rgba(255, 255, 255, 0.78);
@@ -302,13 +316,10 @@
 	}
 
 	.dots {
-		position: absolute;
-		left: 50%;
-		bottom: 1.5rem;
-		transform: translateX(-50%);
+		margin-top: 1rem;
 		display: flex;
+		justify-content: center;
 		gap: 0.55rem;
-		z-index: 2;
 	}
 
 	.dots button {
@@ -316,7 +327,7 @@
 		height: 0.8rem;
 		border: 0;
 		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.3);
+		background: rgba(7, 63, 96, 0.2);
 	}
 
 	.dots button.active {
@@ -324,27 +335,40 @@
 		background: var(--color-accent);
 	}
 
-	@media (min-width: 768px) {
-		.slider {
-			min-height: 600px;
+	@media (max-width: 767px) {
+		.hero {
+			padding-top: 0.5rem;
 		}
 
 		.slide {
-			padding: 3rem;
-			grid-template-columns: 1.2fr 0.8fr;
-			align-items: center;
-			align-content: normal;
-			gap: 2rem;
+			border-radius: 1.7rem;
 		}
 
-		.device {
-			padding: 1.4rem;
+		.hero-logo {
+			width: min(100%, 150px);
+		}
+
+		.hero-icon {
+			width: 46px;
+			height: 46px;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.slide {
+			padding: 3rem;
+			grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+			align-items: center;
+			gap: 2.5rem;
+		}
+
+		.visual-frame {
+			padding: 1.2rem;
 			gap: 1rem;
 		}
 
-		.art,
-		.hero-photo {
-			min-height: 210px;
+		.art {
+			aspect-ratio: 1 / 1.1;
 		}
 
 		.hero-logo {
@@ -352,10 +376,8 @@
 		}
 
 		.hero-icon {
-			right: 1rem;
-			bottom: 1rem;
-			width: 74px;
-			height: 74px;
+			width: 70px;
+			height: 70px;
 		}
 
 		.meta span {
