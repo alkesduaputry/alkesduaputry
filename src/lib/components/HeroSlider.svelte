@@ -1,4 +1,6 @@
 <script lang="ts">
+	import brandIcon from '$lib/assets/brand-icon.png';
+	import brandLogo from '$lib/assets/brand-logo.png';
 	import { onMount } from 'svelte';
 	import { whatsappBase } from '$lib/data/products';
 
@@ -7,7 +9,7 @@
 		description: string;
 		background: string;
 		accent: string;
-		art: string;
+		visualLabel: string;
 		secondaryText: string;
 	};
 
@@ -19,7 +21,7 @@
 			background:
 				'radial-gradient(circle at top left, rgba(232,160,32,0.22), transparent 30%), linear-gradient(135deg, #0a5c8a 0%, #073f60 70%)',
 			accent: 'Bed pasien premium siap demo dan training',
-			art: '🛏️',
+			visualLabel: 'Distribusi alat kesehatan resmi',
 			secondaryText: 'Lihat Produk'
 		},
 		{
@@ -29,7 +31,7 @@
 			background:
 				'linear-gradient(135deg, rgba(10,92,138,0.95), rgba(7,63,96,0.92)), repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 12px, transparent 12px 24px)',
 			accent: 'Paket hemat untuk kebutuhan bangsal dan laboratorium',
-			art: '📦',
+			visualLabel: 'Bundling produk dan perlengkapan',
 			secondaryText: 'Konsultasi Bundling'
 		},
 		{
@@ -39,7 +41,7 @@
 			background:
 				'radial-gradient(circle at bottom right, rgba(232,160,32,0.24), transparent 28%), linear-gradient(135deg, #0d689b 0%, #073f60 78%)',
 			accent: 'S-IDAK dan CDAKB siap ditunjukkan saat dibutuhkan',
-			art: '✅',
+			visualLabel: 'Izin edar dan sertifikasi',
 			secondaryText: 'Lihat Sertifikasi'
 		}
 	];
@@ -122,10 +124,13 @@
 					<div class="visual" aria-hidden="true">
 						<div class="device">
 							<div class="badge">AKL & AKD</div>
-							<div class="art">{slide.art}</div>
+							<div class="art">
+								<img class="hero-logo" src={brandLogo} alt="Logo AlkesDuaPutry" />
+								<img class="hero-icon" src={brandIcon} alt="Icon AlkesDuaPutry" />
+							</div>
 							<div class="meta">
-								<strong>PT Mitra Medika Farma</strong>
-								<span>Sertifikasi siap verifikasi</span>
+								<strong>{slide.visualLabel}</strong>
+								<span>PT Mitra Medika Farma • Sertifikasi siap verifikasi</span>
 							</div>
 						</div>
 					</div>
@@ -237,11 +242,29 @@
 		min-height: 210px;
 		display: grid;
 		place-items: center;
-		font-size: 7rem;
+		padding: 1.25rem;
 		background:
 			linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)),
 			radial-gradient(circle at center, rgba(255, 255, 255, 0.22), transparent 55%);
 		border-radius: 1.4rem;
+	}
+
+	.hero-logo {
+		width: min(100%, 280px);
+		height: auto;
+		filter: drop-shadow(0 14px 28px rgba(7, 63, 96, 0.2));
+	}
+
+	.hero-icon {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+		width: 74px;
+		height: 74px;
+		border-radius: 999px;
+		box-shadow: 0 12px 28px rgba(7, 63, 96, 0.3);
+		background: rgba(255, 255, 255, 0.96);
+		padding: 0.18rem;
 	}
 
 	.meta strong,

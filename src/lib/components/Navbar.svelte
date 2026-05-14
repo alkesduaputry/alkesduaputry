@@ -1,4 +1,6 @@
 <script lang="ts">
+	import brandIcon from '$lib/assets/brand-icon.png';
+	import brandLogo from '$lib/assets/brand-logo.png';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import { productCategories, whatsappBase } from '$lib/data/products';
@@ -74,9 +76,9 @@
 <nav class:scrolled={isScrolled} bind:this={navElement}>
 	<div class="container nav-shell">
 		<a class="brand" href="/">
-			<span class="brand-mark" aria-hidden="true"></span>
+			<img class="brand-icon" src={brandIcon} alt="Icon AlkesDuaPutry" />
 			<span class="brand-copy">
-				<strong>AlkesDuaPutry</strong>
+				<img class="brand-logo" src={brandLogo} alt="AlkesDuaPutry" />
 				<small>Medical Supply Partner</small>
 			</span>
 		</a>
@@ -164,43 +166,23 @@
 		min-width: 0;
 	}
 
-	.brand-mark {
+	.brand-icon {
 		width: 2.85rem;
 		height: 2.85rem;
-		position: relative;
-		border-radius: 1rem;
-		background: linear-gradient(145deg, var(--color-primary), var(--color-primary-dark));
-		box-shadow: var(--shadow-card);
-	}
-
-	.brand-mark::before,
-	.brand-mark::after {
-		content: '';
-		position: absolute;
-		background: var(--color-white);
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
+		flex: 0 0 auto;
 		border-radius: 999px;
-	}
-
-	.brand-mark::before {
-		width: 1.25rem;
-		height: 0.22rem;
-	}
-
-	.brand-mark::after {
-		width: 0.22rem;
-		height: 1.25rem;
+		object-fit: cover;
+		box-shadow: var(--shadow-card);
 	}
 
 	.brand-copy {
 		display: grid;
+		gap: 0.2rem;
 	}
 
-	.brand-copy strong {
-		font-family: 'Fraunces', serif;
-		font-size: 1.15rem;
+	.brand-logo {
+		width: clamp(130px, 20vw, 190px);
+		height: auto;
 	}
 
 	.brand-copy small {
@@ -336,6 +318,10 @@
 
 		.cta {
 			padding-inline: 1.25rem;
+		}
+
+		.brand-logo {
+			width: 180px;
 		}
 
 		.hamburger,

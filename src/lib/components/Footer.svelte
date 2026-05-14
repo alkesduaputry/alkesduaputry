@@ -1,4 +1,6 @@
 <script lang="ts">
+	import brandIcon from '$lib/assets/brand-icon.png';
+	import brandLogo from '$lib/assets/brand-logo.png';
 	import { productCategories, whatsappBase } from '$lib/data/products';
 
 	const mainLinks = [
@@ -16,8 +18,9 @@
 	<div class="container footer-grid">
 		<div class="brand">
 			<div class="brand-head">
-				<span class="logo-mark"></span>
+				<img class="logo-mark" src={brandIcon} alt="Icon AlkesDuaPutry" />
 				<div>
+					<img class="brand-logo" src={brandLogo} alt="AlkesDuaPutry" />
 					<strong>PT MITRA MEDIKA FARMA</strong>
 					<p>Ruko Asera Blok 1S 20 No.17, Harapan Indah, Bekasi</p>
 				</div>
@@ -79,30 +82,16 @@
 	.logo-mark {
 		width: 3rem;
 		height: 3rem;
-		position: relative;
-		border-radius: 1rem;
-		background: linear-gradient(145deg, var(--color-primary), var(--color-primary-dark));
-	}
-
-	.logo-mark::before,
-	.logo-mark::after {
-		content: '';
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		background: var(--color-white);
 		border-radius: 999px;
+		object-fit: cover;
+		box-shadow: 0 10px 24px rgba(10, 92, 138, 0.2);
 	}
 
-	.logo-mark::before {
-		width: 1.15rem;
-		height: 0.18rem;
-	}
-
-	.logo-mark::after {
-		width: 0.18rem;
-		height: 1.15rem;
+	.brand-logo {
+		width: 180px;
+		max-width: 100%;
+		height: auto;
+		margin-bottom: 0.55rem;
 	}
 
 	strong {
