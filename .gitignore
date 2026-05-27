@@ -27,3 +27,4 @@ vite.config.ts.timestamp-*
 .codex-dev.log
 .codex-dev.err.log
 .vscode/
+tmp/
