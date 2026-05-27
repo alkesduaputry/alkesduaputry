@@ -5,13 +5,18 @@
 
 	const mainLinks = [
 		{ href: '/', label: 'Beranda' },
-		{ href: '/tentang', label: 'Tentang Kami' },
-		{ href: '/portofolio', label: 'Portofolio' },
-		{ href: '/blog', label: 'Blog' },
+		{ href: '/produk', label: 'Produk' },
+		{ href: '/tentang-kami', label: 'Tentang Kami' },
 		{ href: '/kontak', label: 'Kontak' }
 	];
 
-	const socials = ['Instagram', 'Facebook', 'YouTube', 'LinkedIn'];
+	const policyLinks = [
+		{ href: '/kebijakan-privasi', label: 'Kebijakan Privasi' },
+		{ href: '/syarat-ketentuan', label: 'Syarat & Ketentuan' },
+		{ href: '/kebijakan-pengiriman', label: 'Kebijakan Pengiriman' },
+		{ href: '/kebijakan-pengembalian', label: 'Kebijakan Pengembalian' },
+		{ href: '/metode-pembayaran', label: 'Metode Pembayaran' }
+	];
 </script>
 
 <footer>
@@ -41,22 +46,28 @@
 		<div class="links">
 			<h3>Kategori Produk</h3>
 			{#each productCategories as category}
-				<a href={`/produk/${category.slug}`}>{category.shortTitle}</a>
+				<a href={`/kategori/${category.slug}`}>{category.shortTitle}</a>
+			{/each}
+		</div>
+
+		<div class="links">
+			<h3>Kebijakan</h3>
+			{#each policyLinks as link}
+				<a href={link.href}>{link.label}</a>
 			{/each}
 		</div>
 
 		<div class="contact">
 			<h3>Kontak</h3>
 			<a href={whatsappBase} target="_blank" rel="noreferrer">+62 857-8019-9904</a>
-			<a href={whatsappBase} target="_blank" rel="noreferrer">+62 857-8019-9904</a>
 			<a href="mailto:adm88.mmf@gmail.com">adm88.mmf@gmail.com</a>
 			<a href="mailto:fnc88.mmf@gmail.com">fnc88.mmf@gmail.com</a>
-			<div class="socials">
-				{#each socials as social}
-					<span>{social}</span>
-				{/each}
-			</div>
 		</div>
+	</div>
+	<div class="container disclaimer">
+		Informasi produk di website ini bersifat informatif dan bukan pengganti nasihat medis profesional.
+		Untuk penggunaan alat kesehatan tertentu, ikuti petunjuk resmi produk atau konsultasikan dengan
+		tenaga kesehatan.
 	</div>
 	<div class="container footer-bottom">Copyright 2024 PT Mitra Medika Farma</div>
 </footer>
@@ -139,18 +150,13 @@
 		color: rgba(255, 255, 255, 0.75);
 	}
 
-	.socials {
-		margin-top: 0.75rem;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
-
-	.socials span {
-		padding: 0.45rem 0.7rem;
-		border-radius: 999px;
+	.disclaimer {
+		margin-top: 1.5rem;
+		padding: 1rem;
+		border-radius: 8px;
 		background: rgba(255, 255, 255, 0.08);
-		font-size: 0.82rem;
+		color: rgba(255, 255, 255, 0.82);
+		line-height: 1.7;
 	}
 
 	.footer-bottom {
@@ -162,7 +168,7 @@
 
 	@media (min-width: 768px) {
 		.footer-grid {
-			grid-template-columns: 1.4fr 0.8fr 0.9fr 1fr;
+			grid-template-columns: 1.3fr 0.75fr 0.9fr 1fr 1fr;
 		}
 	}
 </style>

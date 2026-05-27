@@ -57,8 +57,9 @@
 						<span>Saya Mencari</span>
 						<select bind:value={need}>
 							<option>Hospital Furniture</option>
-							<option>Rapid Test</option>
-							<option>Disposable</option>
+							<option>Lemari Instrumen</option>
+							<option>Trolley Medis</option>
+							<option>Peralatan Nursery</option>
 							<option>Hospital Bed</option>
 							<option>E-Katalog LKPP</option>
 							<option>Lainnya</option>

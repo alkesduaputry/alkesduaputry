@@ -9,17 +9,15 @@
 	<div class="container about">
 		<div class="content">
 			<span class="eyebrow">Tentang Kami</span>
-			<h2 class="section-title">SkrinMe Sebagai Distributor Alat Kesehatan Selalu Mengutamakan</h2>
+			<h2 class="section-title">Alkes Dua Putry Mengutamakan Katalog Produk yang Jelas dan Profesional</h2>
 			<h3>Produk Berkualitas & Kepuasan Pelanggan</h3>
 			<p class="section-copy">
-				Mitra kami AlkesDuaPutry menyediakan produk-produk alat kesehatan yang berkualitas dan
-				terpercaya untuk klinik, rumah sakit, laboratorium, perusahaan, dan pembelian perseorangan
-				dengan harga yang tetap kompetitif.
+				Alkes Dua Putry menyediakan alat kesehatan non-obat dan hospital furniture untuk klinik,
+				rumah sakit, laboratorium, perusahaan, dan kebutuhan pengadaan institusi.
 			</p>
 			<p class="section-copy">
-				Setiap produk dipastikan memiliki izin resmi dari Kementerian Kesehatan. Tim kami juga siap
-				mendukung kebutuhan rapid test, pengadaan furniture medis, sampai training penggunaan produk
-				agar implementasi di lapangan berjalan lebih mulus.
+				Dokumen izin edar produk dikonfirmasi jika tersedia. Tim kami membantu kebutuhan hospital
+				furniture, trolley medis, lemari instrumen, dan koordinasi pengiriman produk besar.
 			</p>
 			<div class="button-row">
 				<a class="btn btn-primary" href={whatsappBase} target="_blank" rel="noreferrer">Konsultasikan Kebutuhan Anda</a>

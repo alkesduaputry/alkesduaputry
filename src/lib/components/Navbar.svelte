@@ -11,11 +11,11 @@
 	let navElement: HTMLElement | null = null;
 
 	const productLinks = [
-		{ href: '/produk/hospital-furniture', label: 'Hospital Furniture' },
-		{ href: '/produk/hospital-bed', label: 'Hospital Bed Premium' },
-		{ href: '/produk/rapid-test', label: 'Rapid Diagnostic Test' },
-		{ href: '/produk/disposable', label: 'Disposable Consumable' },
-		{ href: '/produk/e-katalog', label: 'E-Katalog LKPP' }
+		{ href: '/produk', label: 'Semua Produk' },
+		...productCategories.map((category) => ({
+			href: `/kategori/${category.slug}`,
+			label: category.shortTitle
+		}))
 	];
 
 	function closeMenus() {
@@ -70,7 +70,7 @@
 		};
 	});
 
-	const isProductsActive = () => productCategories.some((item) => page.url.pathname.includes(item.slug));
+	const isProductsActive = () => page.url.pathname.startsWith('/produk') || page.url.pathname.startsWith('/kategori');
 </script>
 
 <nav class:scrolled={isScrolled} bind:this={navElement}>
@@ -85,7 +85,7 @@
 
 		<div class="desktop-menu">
 			<a class:active={page.url.pathname === '/'} href="/">Beranda</a>
-			<a class:active={page.url.pathname.startsWith('/tentang')} href="/tentang">Tentang Kami</a>
+			<a class:active={page.url.pathname.startsWith('/tentang')} href="/tentang-kami">Tentang Kami</a>
 			<div
 				class="dropdown"
 				role="presentation"
@@ -99,8 +99,6 @@
 					{/each}
 				</div>
 			</div>
-			<a class:active={page.url.pathname.startsWith('/portofolio')} href="/portofolio">Portofolio</a>
-			<a class:active={page.url.pathname.startsWith('/blog')} href="/blog">Blog</a>
 			<a class:active={page.url.pathname.startsWith('/kontak')} href="/kontak">Kontak</a>
 		</div>
 
@@ -117,7 +115,7 @@
 	{#if mobileOpen}
 		<div class="mobile-panel">
 			<a href="/">Beranda</a>
-			<a href="/tentang">Tentang Kami</a>
+			<a href="/tentang-kami">Tentang Kami</a>
 			<button type="button" onclick={toggleDropdown}>Produk</button>
 			{#if dropdownOpen}
 				<div class="mobile-dropdown">
@@ -126,8 +124,6 @@
 					{/each}
 				</div>
 			{/if}
-			<a href="/portofolio">Portofolio</a>
-			<a href="/blog">Blog</a>
 			<a href="/kontak">Kontak</a>
 		</div>
 	{/if}

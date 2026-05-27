@@ -2,7 +2,7 @@
 	import { productCategories } from '$lib/data/products';
 
 	const cards = productCategories.filter((item) =>
-		['hospital-furniture', 'rapid-test', 'disposable'].includes(item.slug)
+		['hospital-furniture', 'lemari-instrumen', 'trolley-medis'].includes(item.slug)
 	);
 </script>
 
@@ -12,7 +12,7 @@
 		<h2 class="section-title">Kategori produk yang paling sering diminta untuk pengadaan cepat.</h2>
 		<div class="grid">
 			{#each cards as card}
-				<a class="card product-card" href={`/produk/${card.slug}`}>
+				<a class="card product-card" href={`/kategori/${card.slug}`}>
 					<div class="icon">{card.icon}</div>
 					<h3>{card.shortTitle}</h3>
 					<p>{card.description}</p>
