@@ -28,8 +28,7 @@
 			</div>
 			<div>
 				<strong>Email</strong>
-				<a href="mailto:adm88.mmf@gmail.com">adm88.mmf@gmail.com</a>
-				<a href="mailto:fnc88.mmf@gmail.com">fnc88.mmf@gmail.com</a>
+				<a href="mailto:alkesduaputry@gmail.com">alkesduaputry@gmail.com</a>
 			</div>
 			<div>
 				<strong>Alamat</strong>

@@ -60,8 +60,7 @@
 		<div class="contact">
 			<h3>Kontak</h3>
 			<a href={whatsappBase} target="_blank" rel="noreferrer">+62 857-8019-9904</a>
-			<a href="mailto:adm88.mmf@gmail.com">adm88.mmf@gmail.com</a>
-			<a href="mailto:fnc88.mmf@gmail.com">fnc88.mmf@gmail.com</a>
+			<a href="mailto:alkesduaputry@gmail.com">alkesduaputry@gmail.com</a>
 		</div>
 	</div>
 	<div class="container disclaimer">
