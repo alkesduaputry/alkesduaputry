@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ProductCard from '$lib/components/ProductCard.svelte';
 	import ProductFilter from '$lib/components/ProductFilter.svelte';
-	import { SITE_URL, productCategories, type Product } from '$lib/data/products';
+	import { SITE_URL, type Product } from '$lib/data/products';
 	import type { PageData } from './$types';
 
 	let { data } = $props<{ data: PageData }>();
@@ -10,6 +10,7 @@
 	let query = $state('');
 	let sort = $state('name-asc');
 	let products = $derived(data.products as Product[]);
+	let categories = $derived(data.categories ?? []);
 	const catalogTitle = 'Katalog Produk Alat Kesehatan | Alkes Dua Putry';
 	const catalogDescription =
 		'Katalog alat kesehatan non-obat, hospital furniture, trolley medis, lemari instrumen, infant bed, infant warmer, dan produk klinik Alkes Dua Putry.';
@@ -68,11 +69,13 @@
 
 <section class="catalog">
 	<div class="container">
-		<ProductFilter categories={productCategories} bind:selectedCategory bind:query bind:sort />
+		<ProductFilter {categories} bind:selectedCategory bind:query bind:sort />
 		<div class="count">{filteredProducts.length} produk ditemukan</div>
 		<div class="product-grid">
 			{#each filteredProducts as product}
 				<ProductCard {product} />
+			{:else}
+				<p class="empty">Produk approved dari katalog PDF belum tersedia.</p>
 			{/each}
 		</div>
 	</div>
@@ -97,6 +100,11 @@
 	.product-grid {
 		display: grid;
 		gap: 1rem;
+	}
+
+	.empty {
+		margin: 0;
+		color: var(--color-muted);
 	}
 
 	@media (min-width: 768px) {

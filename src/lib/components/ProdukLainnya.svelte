@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { productCategories } from '$lib/data/products';
+	import { page } from '$app/state';
+	import type { CatalogCategorySummary } from '$lib/server/catalog';
 
-	const cards = productCategories.filter((item) =>
-		['hospital-furniture', 'lemari-instrumen', 'trolley-medis'].includes(item.slug)
-	);
+	const cards = $derived(((page.data.catalogCategories ?? []) as CatalogCategorySummary[]).slice(0, 3));
 </script>
 
 <section class="section">
@@ -13,7 +12,7 @@
 		<div class="grid">
 			{#each cards as card}
 				<a class="card product-card" href={`/kategori/${card.slug}`}>
-					<div class="icon">{card.icon}</div>
+					<div class="count">{card.count}</div>
 					<h3>{card.shortTitle}</h3>
 					<p>{card.description}</p>
 				</a>
@@ -43,14 +42,16 @@
 		border-color: rgba(10, 92, 138, 0.24);
 	}
 
-	.icon {
+	.count {
 		width: 3.3rem;
 		height: 3.3rem;
 		display: grid;
 		place-items: center;
 		border-radius: 1rem;
 		background: rgba(10, 92, 138, 0.08);
-		font-size: 1.7rem;
+		color: var(--color-primary-dark);
+		font-size: 1.1rem;
+		font-weight: 900;
 	}
 
 	h3 {

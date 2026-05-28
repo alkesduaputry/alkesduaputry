@@ -1,7 +1,11 @@
 <script lang="ts">
 	import brandIcon from '$lib/assets/brand-icon.png';
 	import brandLogo from '$lib/assets/brand-logo.png';
-	import { productCategories, whatsappBase } from '$lib/data/products';
+	import { page } from '$app/state';
+	import { whatsappBase } from '$lib/data/products';
+	import type { CatalogCategorySummary } from '$lib/server/catalog';
+
+	const productCategories = $derived((page.data.catalogCategories ?? []) as CatalogCategorySummary[]);
 
 	const mainLinks = [
 		{ href: '/', label: 'Beranda' },
@@ -47,6 +51,8 @@
 			<h3>Kategori Produk</h3>
 			{#each productCategories as category}
 				<a href={`/kategori/${category.slug}`}>{category.shortTitle}</a>
+			{:else}
+				<a href="/produk">Semua Produk</a>
 			{/each}
 		</div>
 

@@ -2,10 +2,10 @@ import { getApprovedCatalogCategories, getApprovedCatalogItems } from '$lib/serv
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
-	const catalogProducts = await getApprovedCatalogItems(event);
+	const products = await getApprovedCatalogItems(event);
 
 	return {
-		products: catalogProducts,
-		categories: await getApprovedCatalogCategories(event)
+		featuredProducts: products.slice(0, 6),
+		catalogCategories: await getApprovedCatalogCategories(event)
 	};
 };

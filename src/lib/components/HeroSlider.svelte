@@ -123,7 +123,7 @@
 							<a class="btn btn-accent" href={whatsappBase} target="_blank" rel="noreferrer">
 								Hubungi Kami
 							</a>
-							<a class="btn btn-outline" href="/produk/hospital-bed">
+							<a class="btn btn-outline" href="/produk">
 								{slides[activeSlide].secondaryText}
 							</a>
 						</div>

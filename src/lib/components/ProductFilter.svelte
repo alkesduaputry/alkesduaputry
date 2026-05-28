@@ -1,5 +1,8 @@
 <script lang="ts">
-	import type { ProductCategory } from '$lib/data/products';
+	type FilterCategory = {
+		slug: string;
+		shortTitle: string;
+	};
 
 	let {
 		categories,
@@ -7,7 +10,7 @@
 		query = $bindable(''),
 		sort = $bindable('name-asc')
 	} = $props<{
-		categories: ProductCategory[];
+		categories: FilterCategory[];
 		selectedCategory?: string;
 		query?: string;
 		sort?: string;

@@ -3,20 +3,22 @@
 	import brandLogo from '$lib/assets/brand-logo.png';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
-	import { productCategories, whatsappBase } from '$lib/data/products';
+	import { whatsappBase } from '$lib/data/products';
+	import type { CatalogCategorySummary } from '$lib/server/catalog';
 
 	let isScrolled = $state(false);
 	let mobileOpen = $state(false);
 	let dropdownOpen = $state(false);
 	let navElement: HTMLElement | null = null;
 
-	const productLinks = [
+	const catalogCategories = $derived((page.data.catalogCategories ?? []) as CatalogCategorySummary[]);
+	const productLinks = $derived([
 		{ href: '/produk', label: 'Semua Produk' },
-		...productCategories.map((category) => ({
+		...catalogCategories.map((category) => ({
 			href: `/kategori/${category.slug}`,
-			label: category.shortTitle
+			label: `${category.shortTitle} (${category.count})`
 		}))
-	];
+	]);
 
 	function closeMenus() {
 		mobileOpen = false;

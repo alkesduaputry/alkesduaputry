@@ -39,6 +39,54 @@ export type CatalogDbItem = {
 	display_image_path: string | null;
 };
 
+export type CatalogCategorySummary = {
+	slug: string;
+	title: string;
+	shortTitle: string;
+	description: string;
+	highlights: string[];
+	count: number;
+};
+
+const categoryLabels: Record<string, Omit<CatalogCategorySummary, 'slug' | 'count'>> = {
+	'hospital-bed': {
+		title: 'Hospital Bed',
+		shortTitle: 'Hospital Bed',
+		description: 'Ranjang pasien dan tempat tidur perawatan dari katalog Alkes Dua Putry.',
+		highlights: ['Manual', 'Elektrik', 'Aksesori ranjang']
+	},
+	'hospital-furniture': {
+		title: 'Hospital Furniture',
+		shortTitle: 'Furniture',
+		description: 'Furniture klinik dan rumah sakit dari katalog Alkes Dua Putry.',
+		highlights: ['Meja', 'Brankar', 'Furniture medis']
+	},
+	'trolley-medis': {
+		title: 'Trolley Medis',
+		shortTitle: 'Trolley',
+		description: 'Trolley dan perlengkapan mobilitas alat medis dari katalog Alkes Dua Putry.',
+		highlights: ['Trolley alat', 'Trolley oksigen', 'Trolley tindakan']
+	},
+	'lemari-instrumen': {
+		title: 'Lemari Instrumen',
+		shortTitle: 'Lemari',
+		description: 'Lemari dan kabinet instrumen dari katalog Alkes Dua Putry.',
+		highlights: ['Lemari alat', 'Kabinet', 'Penyimpanan instrumen']
+	},
+	'peralatan-nursery': {
+		title: 'Peralatan Nursery',
+		shortTitle: 'Nursery',
+		description: 'Peralatan bayi dan nursery dari katalog Alkes Dua Putry.',
+		highlights: ['Infant', 'Baby', 'Nursery']
+	},
+	uncategorized: {
+		title: 'Produk Alkes Lainnya',
+		shortTitle: 'Lainnya',
+		description: 'Produk alat kesehatan lain dari katalog Alkes Dua Putry.',
+		highlights: ['Produk katalog', 'Konfirmasi admin', 'Stok sesuai ketersediaan']
+	}
+};
+
 const baseSelect = `
 SELECT
   i.*,
@@ -75,6 +123,15 @@ export function buildCatalogSlug(name: string | null, sku: string | null, id: st
 
 function publicImage(path: string | null) {
 	return path ? `${FILES_BASE_URL}/${path}` : '/products/hospital-bed-manual.svg';
+}
+
+export function getCatalogCategoryMeta(slug: string, count = 0): CatalogCategorySummary {
+	const meta = categoryLabels[slug] ?? categoryLabels.uncategorized;
+	return {
+		slug,
+		count,
+		...meta
+	};
 }
 
 function cleanText(formData: FormData, key: string) {
@@ -141,6 +198,7 @@ function parseSpecs(value: string | null) {
 export function catalogItemToProduct(item: CatalogDbItem): Product | null {
 	const name = item.name?.trim();
 	if (!name || item.review_status !== 'approved' || item.deleted_at) return null;
+	if (!item.display_image_path) return null;
 
 	const price = item.normal_price && item.normal_price > 0 ? item.normal_price : undefined;
 	const salePrice = item.sale_price && item.sale_price > 0 ? item.sale_price : undefined;
@@ -200,6 +258,19 @@ export async function getApprovedCatalogItems(event: RequestEvent) {
 	} catch {
 		return [];
 	}
+}
+
+export async function getApprovedCatalogCategories(event: RequestEvent) {
+	const products = await getApprovedCatalogItems(event);
+	const counts = new Map<string, number>();
+
+	for (const product of products) {
+		counts.set(product.category, (counts.get(product.category) ?? 0) + 1);
+	}
+
+	return [...counts.entries()]
+		.map(([slug, count]) => getCatalogCategoryMeta(slug, count))
+		.sort((a, b) => a.title.localeCompare(b.title));
 }
 
 export async function getApprovedCatalogItemBySlug(event: RequestEvent, slug: string) {

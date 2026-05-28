@@ -1,8 +1,15 @@
 <script lang="ts">
 	import ProductCard from '$lib/components/ProductCard.svelte';
-	import { productCategories, products, whatsappBase } from '$lib/data/products';
+	import { whatsappBase } from '$lib/data/products';
+	import type { PageData } from './$types';
 
-	const featuredProducts = products.slice(0, 6);
+	let { data } = $props<{ data: PageData }>();
+
+	const heroFallbackImage =
+		'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(8).jpeg';
+	const featuredProducts = $derived(data.featuredProducts ?? []);
+	const productCategories = $derived(data.catalogCategories ?? []);
+	const heroImage = $derived(featuredProducts[0]?.image ?? heroFallbackImage);
 	const strengths = [
 		'Produk berkualitas untuk operasional klinik dan rumah sakit',
 		'Konsultasi kebutuhan berdasarkan ruang dan fungsi alat',
@@ -35,7 +42,7 @@
 			</div>
 		</div>
 		<div class="hero-panel">
-			<img src="/products/hospital-bed-manual.svg" alt="Hospital furniture Alkes Dua Putry" />
+			<img src={heroImage} alt="Produk alat kesehatan Alkes Dua Putry" />
 			<div class="trust-row">
 				<span>Izin edar produk jika tersedia</span>
 				<span>Garansi sesuai ketentuan</span>
@@ -80,6 +87,8 @@
 		<div class="product-grid">
 			{#each featuredProducts as product}
 				<ProductCard {product} />
+			{:else}
+				<p class="empty">Produk approved dari katalog PDF belum tersedia.</p>
 			{/each}
 		</div>
 	</div>
@@ -148,6 +157,11 @@
 	.product-grid {
 		display: grid;
 		gap: 1rem;
+	}
+
+	.empty {
+		margin: 0;
+		color: var(--color-muted);
 	}
 
 	.trust-row span,

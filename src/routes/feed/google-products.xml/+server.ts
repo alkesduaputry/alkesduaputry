@@ -1,4 +1,4 @@
-import { SITE_URL, getMerchantEligibleProducts } from '$lib/data/products';
+import { SITE_URL } from '$lib/data/products';
 import { FILES_BASE_URL, getApprovedCatalogItems } from '$lib/server/catalog';
 
 const escapeXml = (value: string | number) =>
@@ -18,14 +18,12 @@ const availabilityMap = {
 const money = (value: number) => `${value.toFixed(2)} IDR`;
 
 export async function GET(event) {
-	const staticProducts = getMerchantEligibleProducts();
-	const catalogProducts = (await getApprovedCatalogItems(event)).filter(
+	const products = (await getApprovedCatalogItems(event)).filter(
 		(product) =>
 			product.name.trim() &&
 			(product.salePrice ?? product.price ?? 0) > 0 &&
 			product.image.startsWith(FILES_BASE_URL)
 	);
-	const products = [...staticProducts, ...catalogProducts];
 
 	const items = products
 		.map((product) => {
