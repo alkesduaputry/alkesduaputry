@@ -17,6 +17,10 @@
 
 	const origin = page.url.origin || SITE_URL;
 	const activePrice = $derived(data.product.salePrice ?? data.product.price);
+	const productUrl = $derived(`${SITE_URL}/produk/${data.product.slug}`);
+	const productImageUrl = $derived(
+		data.product.image.startsWith('http') ? data.product.image : `${SITE_URL}${data.product.image}`
+	);
 </script>
 
 <ProductJsonLd product={data.product} {origin} />
@@ -24,7 +28,19 @@
 <svelte:head>
 	<title>{data.product.name} | Alkes Dua Putry</title>
 	<meta name="description" content={data.product.shortDescription} />
-	<link rel="canonical" href={`${SITE_URL}/produk/${data.product.slug}`} />
+	<link rel="canonical" href={productUrl} />
+	<meta property="og:type" content="product" />
+	<meta property="og:site_name" content="Alkes Dua Putry" />
+	<meta property="og:title" content={`${data.product.name} | Alkes Dua Putry`} />
+	<meta property="og:description" content={data.product.shortDescription} />
+	<meta property="og:url" content={productUrl} />
+	<meta property="og:image" content={productImageUrl} />
+	<meta property="og:image:secure_url" content={productImageUrl} />
+	<meta property="og:image:alt" content={data.product.name} />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={`${data.product.name} | Alkes Dua Putry`} />
+	<meta name="twitter:description" content={data.product.shortDescription} />
+	<meta name="twitter:image" content={productImageUrl} />
 </svelte:head>
 
 <section class="section">

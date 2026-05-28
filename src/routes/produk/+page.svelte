@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ProductCard from '$lib/components/ProductCard.svelte';
 	import ProductFilter from '$lib/components/ProductFilter.svelte';
-	import { productCategories, type Product } from '$lib/data/products';
+	import { SITE_URL, productCategories, type Product } from '$lib/data/products';
 	import type { PageData } from './$types';
 
 	let { data } = $props<{ data: PageData }>();
@@ -10,6 +10,10 @@
 	let query = $state('');
 	let sort = $state('name-asc');
 	let products = $derived(data.products as Product[]);
+	const catalogTitle = 'Katalog Produk Alat Kesehatan | Alkes Dua Putry';
+	const catalogDescription =
+		'Katalog alat kesehatan non-obat, hospital furniture, trolley medis, lemari instrumen, infant bed, infant warmer, dan produk klinik Alkes Dua Putry.';
+	const catalogImage = 'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(8).jpeg';
 
 	const sortValue = (product: Product) => product.salePrice ?? product.price ?? Number.MAX_SAFE_INTEGER;
 
@@ -34,12 +38,21 @@
 </script>
 
 <svelte:head>
-	<title>Katalog Produk Alat Kesehatan | Alkes Dua Putry</title>
-	<meta
-		name="description"
-		content="Katalog alat kesehatan non-obat, hospital furniture, trolley medis, lemari instrumen, infant bed, infant warmer, dan produk klinik Alkes Dua Putry."
-	/>
+	<title>{catalogTitle}</title>
+	<meta name="description" content={catalogDescription} />
 	<link rel="canonical" href="https://alkesduaputry.com/produk" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Alkes Dua Putry" />
+	<meta property="og:title" content={catalogTitle} />
+	<meta property="og:description" content={catalogDescription} />
+	<meta property="og:url" content={`${SITE_URL}/produk`} />
+	<meta property="og:image" content={catalogImage} />
+	<meta property="og:image:secure_url" content={catalogImage} />
+	<meta property="og:image:alt" content="Katalog produk Alkes Dua Putry" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={catalogTitle} />
+	<meta name="twitter:description" content={catalogDescription} />
+	<meta name="twitter:image" content={catalogImage} />
 </svelte:head>
 
 <section class="section">
