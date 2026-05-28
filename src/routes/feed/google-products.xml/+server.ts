@@ -1,4 +1,5 @@
 import { SITE_URL, getMerchantEligibleProducts } from '$lib/data/products';
+import { FILES_BASE_URL, getApprovedCatalogItems } from '$lib/server/catalog';
 
 const escapeXml = (value: string | number) =>
 	String(value)
@@ -16,13 +17,21 @@ const availabilityMap = {
 
 const money = (value: number) => `${value.toFixed(2)} IDR`;
 
-export function GET() {
-	const products = getMerchantEligibleProducts();
+export async function GET(event) {
+	const staticProducts = getMerchantEligibleProducts();
+	const catalogProducts = (await getApprovedCatalogItems(event)).filter(
+		(product) =>
+			product.name.trim() &&
+			(product.salePrice ?? product.price ?? 0) > 0 &&
+			product.image.startsWith(FILES_BASE_URL)
+	);
+	const products = [...staticProducts, ...catalogProducts];
 
 	const items = products
 		.map((product) => {
 			const link = `${SITE_URL}/produk/${product.slug}`;
 			const imageLink = product.image.startsWith('http') ? product.image : `${SITE_URL}${product.image}`;
+			const price = product.price ?? product.salePrice ?? 0;
 
 			return `<item>
 	<g:id>${escapeXml(product.id)}</g:id>
@@ -31,7 +40,7 @@ export function GET() {
 	<g:link>${escapeXml(link)}</g:link>
 	<g:image_link>${escapeXml(imageLink)}</g:image_link>
 	<g:availability>${availabilityMap[product.availability]}</g:availability>
-	<g:price>${money(product.price ?? 0)}</g:price>
+	<g:price>${money(price)}</g:price>
 	${product.salePrice ? `<g:sale_price>${money(product.salePrice)}</g:sale_price>` : ''}
 	${product.brand ? `<g:brand>${escapeXml(product.brand)}</g:brand>` : ''}
 	<g:condition>${product.condition}</g:condition>

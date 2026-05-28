@@ -1,11 +1,15 @@
 <script lang="ts">
 	import ProductCard from '$lib/components/ProductCard.svelte';
 	import ProductFilter from '$lib/components/ProductFilter.svelte';
-	import { productCategories, products, type Product } from '$lib/data/products';
+	import { productCategories, type Product } from '$lib/data/products';
+	import type { PageData } from './$types';
+
+	let { data } = $props<{ data: PageData }>();
 
 	let selectedCategory = $state('all');
 	let query = $state('');
 	let sort = $state('name-asc');
+	let products = $derived(data.products as Product[]);
 
 	const sortValue = (product: Product) => product.salePrice ?? product.price ?? Number.MAX_SAFE_INTEGER;
 

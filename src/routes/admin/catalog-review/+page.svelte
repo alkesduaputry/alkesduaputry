@@ -3,6 +3,14 @@
 
 	let { data, form } = $props<{ data: PageData; form: ActionData }>();
 
+	const statuses = [
+		{ value: 'needs_review', label: 'Needs Review' },
+		{ value: 'approved', label: 'Approved' },
+		{ value: 'rejected', label: 'Rejected' },
+		{ value: 'deleted', label: 'Deleted' },
+		{ value: 'all', label: 'All' }
+	];
+
 	const formatPrice = (value: number | null) =>
 		typeof value === 'number'
 			? new Intl.NumberFormat('id-ID', {
@@ -11,6 +19,12 @@
 					maximumFractionDigits: 0
 				}).format(value)
 			: '-';
+
+	const imageSourceLabel = (source: string) => {
+		if (source === 'custom') return 'Custom product image';
+		if (source === 'page_fallback') return 'PDF page fallback';
+		return 'No image';
+	};
 </script>
 
 <svelte:head>
@@ -23,12 +37,15 @@
 		<div>
 			<span class="eyebrow">Admin</span>
 			<h1>Catalog OCR Review</h1>
-			<p>Review maksimal 50 item OCR dengan status needs_review.</p>
+			<p>Review dan edit produk katalog dari D1. Gambar produk diupload langsung ke R2.</p>
 		</div>
 		{#if data.authenticated}
-			<form method="POST" action="?/logout">
-				<button class="btn btn-outline-dark" type="submit">Logout</button>
-			</form>
+			<div class="head-actions">
+				<a class="btn btn-primary" href="/admin/products/new">Tambah Produk Baru</a>
+				<form method="POST" action="?/logout">
+					<button class="btn btn-outline-dark" type="submit">Logout</button>
+				</form>
+			</div>
 		{/if}
 	</div>
 
@@ -55,15 +72,24 @@
 			<p>Pastikan binding D1 bernama DB aktif di environment Cloudflare.</p>
 		</div>
 	{:else}
+		<nav class="status-tabs" aria-label="Filter status katalog">
+			{#each statuses as item}
+				<a class:active={data.status === item.value} href={`/admin/catalog-review?status=${item.value}`}>
+					{item.label}
+				</a>
+			{/each}
+		</nav>
+
 		<div class="review-count">{data.items.length} item ditampilkan</div>
 
 		<div class="review-list">
 			{#each data.items as item}
 				<article class="review-card">
 					<div class="page-preview">
+						<div class="image-label">{imageSourceLabel(item.image_source)}</div>
 						{#if item.image_url}
 							<a href={item.image_url} target="_blank" rel="noreferrer">
-								<img src={item.image_url} alt={`Halaman katalog ${item.page_number}`} loading="lazy" />
+								<img src={item.image_url} alt={item.image_alt ?? `Halaman katalog ${item.page_number}`} loading="lazy" />
 							</a>
 						{:else}
 							<div class="missing-image">Tidak ada gambar</div>
@@ -81,6 +107,14 @@
 								<strong>{item.sku ?? '-'}</strong>
 							</div>
 							<div>
+								<span>Status</span>
+								<strong>{item.review_status}</strong>
+							</div>
+							<div>
+								<span>Source</span>
+								<strong>{item.source_type ?? 'ocr'}</strong>
+							</div>
+							<div>
 								<span>Confidence</span>
 								<strong>{item.confidence_score ?? 0}</strong>
 							</div>
@@ -88,16 +122,26 @@
 								<span>Discount</span>
 								<strong>{item.discount_percent ?? '-'}%</strong>
 							</div>
+							<div>
+								<span>Slug</span>
+								<strong>{item.slug ?? '-'}</strong>
+							</div>
+							{#if item.deleted_at}
+								<div>
+									<span>Deleted At</span>
+									<strong>{item.deleted_at}</strong>
+								</div>
+							{/if}
 						</div>
 
 						<div class="read-grid">
 							<div>
-								<span>Suggested</span>
-								<p>{item.suggested_name ?? '-'}</p>
-							</div>
-							<div>
 								<span>Name</span>
 								<p>{item.name ?? '-'}</p>
+							</div>
+							<div>
+								<span>Suggested</span>
+								<p>{item.suggested_name ?? '-'}</p>
 							</div>
 							<div>
 								<span>Category</span>
@@ -109,7 +153,7 @@
 							</div>
 						</div>
 
-						<form class="edit-form" method="POST">
+						<form class="edit-form" method="POST" enctype="multipart/form-data">
 							<input type="hidden" name="id" value={item.id} />
 							<label>
 								<span>Name</span>
@@ -120,8 +164,16 @@
 								<input name="suggested_name" value={item.suggested_name ?? ''} />
 							</label>
 							<label>
+								<span>SKU</span>
+								<input name="sku" value={item.sku ?? ''} />
+							</label>
+							<label>
 								<span>Category</span>
 								<input name="category" value={item.category ?? ''} />
+							</label>
+							<label>
+								<span>Brand</span>
+								<input name="brand" value={item.brand ?? 'Alkes Dua Putry'} />
 							</label>
 							<label>
 								<span>Normal Price</span>
@@ -132,21 +184,48 @@
 								<input inputmode="numeric" name="sale_price" value={item.sale_price ?? ''} />
 							</label>
 							<label>
+								<span>Discount Percent</span>
+								<input inputmode="numeric" name="discount_percent" value={item.discount_percent ?? ''} />
+							</label>
+							<label>
 								<span>Review Status</span>
 								<select name="review_status">
 									<option value="needs_review" selected={item.review_status === 'needs_review'}>
 										needs_review
 									</option>
+									<option value="approved" selected={item.review_status === 'approved'}>approved</option>
 									<option value="rejected" selected={item.review_status === 'rejected'}>rejected</option>
+									<option value="deleted" selected={item.review_status === 'deleted'}>deleted</option>
 								</select>
+							</label>
+							<label>
+								<span>Image Alt</span>
+								<input name="image_alt" value={item.image_alt ?? item.name ?? item.suggested_name ?? item.sku ?? ''} />
+							</label>
+							<label>
+								<span>Upload Product Image</span>
+								<input type="file" name="product_image" accept="image/png,image/jpeg,image/webp" />
 							</label>
 
 							<div class="actions">
-								<button class="btn btn-outline-dark" type="submit" formaction="?/save">
-									Save Draft
+								<button class="btn btn-outline-dark" type="submit" formaction="?/save">Save</button>
+								<button class="btn btn-outline-dark" type="submit" formaction="?/uploadImage">
+									Upload Image
 								</button>
 								<button class="btn btn-primary" type="submit" formaction="?/approve">Approve</button>
+								<button class="btn btn-outline-dark" type="submit" formaction="?/markNeedsReview">
+									Mark as Needs Review
+								</button>
 								<button class="btn danger" type="submit" formaction="?/reject">Reject</button>
+								<button class="btn danger" type="submit" formaction="?/deleteProduct">
+									Delete Product
+								</button>
+								<button class="btn btn-outline-dark" type="submit" formaction="?/restoreProduct">
+									Restore Product
+								</button>
+								<button class="btn danger-outline" type="submit" formaction="?/resetImage">
+									Reset Product Image
+								</button>
 							</div>
 						</form>
 
@@ -178,6 +257,13 @@
 		justify-content: space-between;
 		gap: 1rem;
 		margin-bottom: 1rem;
+	}
+
+	.head-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 0.7rem;
 	}
 
 	h1 {
@@ -213,6 +299,27 @@
 		padding: 1.2rem;
 	}
 
+	.status-tabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem;
+		margin: 1rem 0;
+	}
+
+	.status-tabs a {
+		border: 1px solid var(--color-border);
+		border-radius: 8px;
+		padding: 0.65rem 0.9rem;
+		background: var(--color-white);
+		color: var(--color-primary);
+		font-weight: 900;
+	}
+
+	.status-tabs a.active {
+		background: var(--color-primary);
+		color: var(--color-white);
+	}
+
 	.notice,
 	.review-count {
 		margin: 1rem 0;
@@ -237,6 +344,10 @@
 		color: var(--color-text);
 	}
 
+	input[type='file'] {
+		padding: 0.58rem 0.8rem;
+	}
+
 	.review-list {
 		display: grid;
 		gap: 1.2rem;
@@ -248,7 +359,21 @@
 	}
 
 	.page-preview {
+		position: relative;
 		background: #eaf2f5;
+	}
+
+	.image-label {
+		position: absolute;
+		top: 0.8rem;
+		left: 0.8rem;
+		z-index: 2;
+		border-radius: 8px;
+		padding: 0.42rem 0.62rem;
+		background: rgba(7, 63, 96, 0.88);
+		color: #fff;
+		font-size: 0.76rem;
+		font-weight: 900;
 	}
 
 	.page-preview img {
@@ -311,10 +436,15 @@
 		gap: 0.7rem;
 	}
 
-	.danger {
+	.danger,
+	.danger-outline {
 		border-color: rgba(180, 40, 40, 0.25);
 		background: #fff0f0;
 		color: #9f1d1d;
+	}
+
+	.danger-outline {
+		background: #fff;
 	}
 
 	details {

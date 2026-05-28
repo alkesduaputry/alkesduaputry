@@ -1,41 +1,25 @@
 import { fail } from '@sveltejs/kit';
+import {
+	FILES_BASE_URL,
+	getCatalogItems,
+	restoreCatalogItem,
+	softDeleteCatalogItem,
+	updateCatalogItem,
+	uploadProductImage,
+	type CatalogDbItem,
+	type CatalogStatus,
+	type CatalogStatusFilter
+} from '$lib/server/catalog';
 import type { Actions, PageServerLoad, RequestEvent } from './$types';
 
-const FILES_BASE_URL = 'https://files.alkesduaputry.com';
 const AUTH_COOKIE = 'adp_admin_auth';
+const FILTER_STATUSES: CatalogStatusFilter[] = ['needs_review', 'approved', 'rejected', 'deleted', 'all'];
 
-type CatalogReviewItem = {
-	id: string;
-	source_id: string;
-	page_number: number;
-	item_index: number;
-	sku: string | null;
-	name: string | null;
-	suggested_name: string | null;
-	category: string | null;
-	brand: string | null;
-	normal_price: number | null;
-	sale_price: number | null;
-	discount_percent: number | null;
-	confidence_score: number | null;
-	specs_json: string | null;
-	raw_text: string;
-	review_status: string;
-	image_path: string | null;
+type CatalogReviewItem = CatalogDbItem & {
 	image_url: string | null;
+	image_source: 'custom' | 'page_fallback' | 'none';
 	specs_pretty: string;
 };
-
-const reviewQuery = `
-SELECT i.*, p.image_path
-FROM catalog_items i
-LEFT JOIN catalog_pages p
-  ON p.source_id = i.source_id
- AND p.page_number = i.page_number
-WHERE i.review_status = 'needs_review'
-ORDER BY i.page_number ASC, i.item_index ASC
-LIMIT 50
-`;
 
 function getAdminPassword(event: RequestEvent) {
 	return event.platform?.env.ADMIN_PASSWORD ?? process.env.ADMIN_PASSWORD ?? '';
@@ -57,36 +41,14 @@ async function isAuthenticated(event: RequestEvent) {
 	return event.cookies.get(AUTH_COOKIE) === (await sha256(password));
 }
 
+function getFilterStatus(event: RequestEvent): CatalogStatusFilter {
+	const status = event.url.searchParams.get('status');
+	return FILTER_STATUSES.includes(status as CatalogStatusFilter) ? (status as CatalogStatusFilter) : 'needs_review';
+}
+
 function cleanTextField(formData: FormData, key: string) {
 	const value = formData.get(key);
 	return typeof value === 'string' && value.trim() ? value.trim() : null;
-}
-
-function parseNullableNumber(formData: FormData, key: string) {
-	const value = formData.get(key);
-	if (typeof value !== 'string' || value.trim() === '') return null;
-	const normalized = value.replace(/[^\d]/g, '');
-	if (!normalized) return null;
-	const parsed = Number.parseInt(normalized, 10);
-	return Number.isFinite(parsed) ? parsed : null;
-}
-
-function parseItemForm(formData: FormData) {
-	const id = cleanTextField(formData, 'id');
-	const name = cleanTextField(formData, 'name');
-	const suggestedName = cleanTextField(formData, 'suggested_name');
-	const category = cleanTextField(formData, 'category');
-	const reviewStatus = cleanTextField(formData, 'review_status') ?? 'needs_review';
-
-	return {
-		id,
-		name,
-		suggestedName,
-		category,
-		normalPrice: parseNullableNumber(formData, 'normal_price'),
-		salePrice: parseNullableNumber(formData, 'sale_price'),
-		reviewStatus: ['needs_review', 'rejected'].includes(reviewStatus) ? reviewStatus : 'needs_review'
-	};
 }
 
 function prettifySpecs(value: string | null) {
@@ -98,7 +60,7 @@ function prettifySpecs(value: string | null) {
 	}
 }
 
-async function getAuthorizedDb(event: RequestEvent) {
+async function getAuthorizedResources(event: RequestEvent) {
 	if (!(await isAuthenticated(event))) {
 		return { error: fail(401, { message: 'Password admin tidak valid atau sesi sudah berakhir.' }) };
 	}
@@ -111,7 +73,17 @@ async function getAuthorizedDb(event: RequestEvent) {
 	return { db };
 }
 
+function decorateItem(item: CatalogDbItem): CatalogReviewItem {
+	return {
+		...item,
+		image_url: item.display_image_path ? `${FILES_BASE_URL}/${item.display_image_path}` : null,
+		image_source: item.image_path ? 'custom' : item.page_image_path ? 'page_fallback' : 'none',
+		specs_pretty: prettifySpecs(item.specs_json)
+	};
+}
+
 export const load: PageServerLoad = async (event) => {
+	const status = getFilterStatus(event);
 	const hasPassword = Boolean(getAdminPassword(event));
 	const authenticated = await isAuthenticated(event);
 	const db = getDb(event);
@@ -120,6 +92,8 @@ export const load: PageServerLoad = async (event) => {
 		return {
 			authenticated: false,
 			missingPassword: true,
+			dbMissing: false,
+			status,
 			items: [] as CatalogReviewItem[],
 			filesBaseUrl: FILES_BASE_URL
 		};
@@ -129,6 +103,8 @@ export const load: PageServerLoad = async (event) => {
 		return {
 			authenticated: false,
 			missingPassword: false,
+			dbMissing: false,
+			status,
 			items: [] as CatalogReviewItem[],
 			filesBaseUrl: FILES_BASE_URL
 		};
@@ -139,24 +115,20 @@ export const load: PageServerLoad = async (event) => {
 			authenticated: true,
 			missingPassword: false,
 			dbMissing: true,
+			status,
 			items: [] as CatalogReviewItem[],
 			filesBaseUrl: FILES_BASE_URL
 		};
 	}
 
-	const { results } = await db.prepare(reviewQuery).all<CatalogReviewItem>();
-	const rows = results as CatalogReviewItem[];
-	const items = rows.map((item) => ({
-		...item,
-		image_url: item.image_path ? `${FILES_BASE_URL}/${item.image_path}` : null,
-		specs_pretty: prettifySpecs(item.specs_json)
-	}));
+	const results = await getCatalogItems(event, status);
 
 	return {
 		authenticated: true,
 		missingPassword: false,
 		dbMissing: false,
-		items,
+		status,
+		items: results.map(decorateItem),
 		filesBaseUrl: FILES_BASE_URL
 	};
 };
@@ -192,82 +164,155 @@ export const actions: Actions = {
 	},
 
 	save: async (event) => {
-		const authorized = await getAuthorizedDb(event);
+		const authorized = await getAuthorizedResources(event);
+		if ('error' in authorized) return authorized.error;
+
+		try {
+			await updateCatalogItem(event, await event.request.formData());
+			return { message: 'Perubahan disimpan.' };
+		} catch (error) {
+			return fail(400, { message: error instanceof Error ? error.message : 'Gagal menyimpan produk.' });
+		}
+	},
+
+	uploadImage: async (event) => {
+		const authorized = await getAuthorizedResources(event);
 		if ('error' in authorized) return authorized.error;
 		const { db } = authorized;
 
-		const data = parseItemForm(await event.request.formData());
-		if (!data.id) return fail(400, { message: 'ID item tidak ditemukan.' });
+		const formData = await event.request.formData();
+		const id = cleanTextField(formData, 'id');
+		const file = formData.get('product_image');
+		if (!id) return fail(400, { message: 'ID item tidak ditemukan.' });
+		if (!(file instanceof File)) return fail(400, { message: 'File gambar wajib dipilih.' });
+
+		try {
+			const key = await uploadProductImage(event, id, file, cleanTextField(formData, 'slug'));
+			await db
+				.prepare(
+					`UPDATE catalog_items
+					 SET image_path = ?, image_alt = ?, image_updated_at = CURRENT_TIMESTAMP,
+					     updated_at = CURRENT_TIMESTAMP
+					 WHERE id = ?`
+				)
+				.bind(
+					key,
+					cleanTextField(formData, 'image_alt') ??
+						cleanTextField(formData, 'name') ??
+						cleanTextField(formData, 'suggested_name') ??
+						cleanTextField(formData, 'sku') ??
+						'Produk Alkes Dua Putry',
+					id
+				)
+				.run();
+		} catch (error) {
+			return fail(400, { message: error instanceof Error ? error.message : 'Gagal upload gambar.' });
+		}
+
+		return { message: 'Gambar produk berhasil diupload.' };
+	},
+
+	resetImage: async (event) => {
+		const authorized = await getAuthorizedResources(event);
+		if ('error' in authorized) return authorized.error;
+		const { db } = authorized;
+
+		const formData = await event.request.formData();
+		const id = cleanTextField(formData, 'id');
+		if (!id) return fail(400, { message: 'ID item tidak ditemukan.' });
 
 		await db
 			.prepare(
 				`UPDATE catalog_items
-				 SET name = ?, suggested_name = ?, category = ?, normal_price = ?, sale_price = ?,
-				     review_status = ?, updated_at = CURRENT_TIMESTAMP
-				 WHERE id = ? AND review_status <> 'approved'`
+				 SET image_path = NULL, image_alt = NULL, image_updated_at = CURRENT_TIMESTAMP,
+				     updated_at = CURRENT_TIMESTAMP
+				 WHERE id = ?`
 			)
-			.bind(
-				data.name,
-				data.suggestedName,
-				data.category,
-				data.normalPrice,
-				data.salePrice,
-				data.reviewStatus,
-				data.id
-			)
+			.bind(id)
 			.run();
 
-		return { message: 'Draft disimpan.' };
+		return { message: 'Gambar produk direset ke gambar halaman PDF.' };
 	},
 
 	approve: async (event) => {
-		const authorized = await getAuthorizedDb(event);
+		const authorized = await getAuthorizedResources(event);
+		if ('error' in authorized) return authorized.error;
+
+		const formData = await event.request.formData();
+		formData.set('review_status', 'approved');
+		try {
+			await updateCatalogItem(event, formData);
+			return { message: 'Item disetujui.' };
+		} catch (error) {
+			return fail(400, { message: error instanceof Error ? error.message : 'Gagal approve produk.' });
+		}
+	},
+
+	markNeedsReview: async (event) => {
+		const authorized = await getAuthorizedResources(event);
 		if ('error' in authorized) return authorized.error;
 		const { db } = authorized;
 
-		const data = parseItemForm(await event.request.formData());
-		if (!data.id) return fail(400, { message: 'ID item tidak ditemukan.' });
-
-		const finalName = data.name ?? data.suggestedName;
-		if (!finalName) {
-			return fail(400, { message: 'Nama wajib diisi sebelum approve.' });
-		}
-
-		if (!data.salePrice || data.salePrice <= 0) {
-			return fail(400, { message: 'Sale price wajib diisi dan lebih dari 0 sebelum approve.' });
-		}
+		const formData = await event.request.formData();
+		const id = cleanTextField(formData, 'id');
+		if (!id) return fail(400, { message: 'ID item tidak ditemukan.' });
 
 		await db
 			.prepare(
 				`UPDATE catalog_items
-				 SET name = ?, suggested_name = ?, category = ?, normal_price = ?, sale_price = ?,
-				     review_status = 'approved', updated_at = CURRENT_TIMESTAMP
-				 WHERE id = ? AND review_status <> 'approved'`
+				 SET review_status = 'needs_review', updated_at = CURRENT_TIMESTAMP
+				 WHERE id = ?`
 			)
-			.bind(finalName, data.suggestedName, data.category, data.normalPrice, data.salePrice, data.id)
+			.bind(id)
 			.run();
 
-		return { message: 'Item disetujui.' };
+		return { message: 'Item dikembalikan ke needs_review.' };
 	},
 
 	reject: async (event) => {
-		const authorized = await getAuthorizedDb(event);
+		const authorized = await getAuthorizedResources(event);
 		if ('error' in authorized) return authorized.error;
-		const { db } = authorized;
 
-		const data = parseItemForm(await event.request.formData());
-		if (!data.id) return fail(400, { message: 'ID item tidak ditemukan.' });
+		const formData = await event.request.formData();
+		formData.set('review_status', 'rejected');
+		try {
+			await updateCatalogItem(event, formData);
+			return { message: 'Item ditolak.' };
+		} catch (error) {
+			return fail(400, { message: error instanceof Error ? error.message : 'Gagal reject produk.' });
+		}
+	},
 
-		await db
-			.prepare(
-				`UPDATE catalog_items
-				 SET name = ?, suggested_name = ?, category = ?, normal_price = ?, sale_price = ?,
-				     review_status = 'rejected', updated_at = CURRENT_TIMESTAMP
-				 WHERE id = ? AND review_status <> 'approved'`
-			)
-			.bind(data.name, data.suggestedName, data.category, data.normalPrice, data.salePrice, data.id)
-			.run();
+	deleteProduct: async (event) => {
+		const authorized = await getAuthorizedResources(event);
+		if ('error' in authorized) return authorized.error;
 
-		return { message: 'Item ditolak.' };
+		const formData = await event.request.formData();
+		const id = cleanTextField(formData, 'id');
+		if (!id) return fail(400, { message: 'ID item tidak ditemukan.' });
+
+		try {
+			await softDeleteCatalogItem(event, id);
+			return { message: 'Produk dihapus dari publik.' };
+		} catch {
+			return fail(400, { message: 'Gagal menghapus produk.' });
+		}
+	},
+
+	restoreProduct: async (event) => {
+		const authorized = await getAuthorizedResources(event);
+		if ('error' in authorized) return authorized.error;
+
+		const formData = await event.request.formData();
+		const id = cleanTextField(formData, 'id');
+		if (!id) return fail(400, { message: 'ID item tidak ditemukan.' });
+
+		const status = (cleanTextField(formData, 'review_status') || 'needs_review') as CatalogStatus;
+		try {
+			await restoreCatalogItem(event, id, status);
+			return { message: 'Produk dipulihkan.' };
+		} catch {
+			return fail(400, { message: 'Gagal restore produk.' });
+		}
 	}
 };
