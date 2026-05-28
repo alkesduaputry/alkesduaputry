@@ -2,7 +2,7 @@
 	import { getAvailabilityLabel, type Product } from '$lib/data/products';
 	import WhatsAppButton from '$lib/components/WhatsAppButton.svelte';
 
-	let { product } = $props<{ product: Product }>();
+	let { product, compact = false } = $props<{ product: Product; compact?: boolean }>();
 
 	const formatPrice = (value: number) =>
 		new Intl.NumberFormat('id-ID', {
@@ -12,7 +12,7 @@
 		}).format(value);
 </script>
 
-<article class="product-card">
+<article class="product-card" class:compact>
 	<a class="image-wrap" href={`/produk/${product.slug}`} aria-label={`Lihat ${product.name}`}>
 		<img src={product.image} alt={product.name} loading="lazy" />
 	</a>
@@ -37,7 +37,7 @@
 		</div>
 		<div class="actions">
 			<a class="btn btn-outline-dark" href={`/produk/${product.slug}`}>Detail</a>
-			<WhatsAppButton {product} />
+			<WhatsAppButton {product} label={compact ? 'WA' : 'Pesan via WhatsApp'} />
 		</div>
 	</div>
 </article>
@@ -120,5 +120,80 @@
 		min-height: 2.8rem;
 		padding: 0.75rem 1rem;
 		border-radius: 8px;
+	}
+
+	.compact .body {
+		gap: 0.7rem;
+	}
+
+	.compact .title {
+		font-size: 1rem;
+	}
+
+	@media (max-width: 767px) {
+		.product-card {
+			min-width: 0;
+		}
+
+		.image-wrap {
+			aspect-ratio: 1 / 1;
+		}
+
+		.body {
+			gap: 0.6rem;
+			padding: 0.7rem;
+		}
+
+		.meta {
+			gap: 0.35rem;
+		}
+
+		.meta span {
+			padding: 0.28rem 0.5rem;
+			font-size: 0.68rem;
+		}
+
+		.meta small {
+			display: none;
+		}
+
+		.title {
+			display: -webkit-box;
+			overflow: hidden;
+			min-height: 2.5rem;
+			font-size: 0.86rem;
+			line-height: 1.35;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
+		}
+
+		p {
+			display: none;
+		}
+
+		.price strong,
+		del {
+			font-size: 0.78rem;
+			line-height: 1.35;
+		}
+
+		.actions {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 0.45rem;
+		}
+
+		.compact .actions {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.actions .btn {
+			width: 100%;
+			min-height: 2.25rem;
+			padding: 0.5rem 0.35rem;
+			font-size: 0.76rem;
+			white-space: nowrap;
+		}
 	}
 </style>

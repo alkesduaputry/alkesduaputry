@@ -36,6 +36,7 @@
 				return a.name.localeCompare(b.name);
 			})
 	);
+	let spotlightProducts = $derived(filteredProducts.slice(0, 8));
 </script>
 
 <svelte:head>
@@ -71,6 +72,21 @@
 	<div class="container">
 		<ProductFilter {categories} bind:selectedCategory bind:query bind:sort />
 		<div class="count">{filteredProducts.length} produk ditemukan</div>
+		{#if spotlightProducts.length}
+			<div class="spotlight" aria-label="Produk pilihan geser samping">
+				<div class="spotlight-head">
+					<h2>Produk pilihan</h2>
+					<span>Geser untuk melihat lainnya</span>
+				</div>
+				<div class="spotlight-rail">
+					{#each spotlightProducts as product}
+						<div class="spotlight-item">
+							<ProductCard {product} compact />
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
 		<div class="product-grid">
 			{#each filteredProducts as product}
 				<ProductCard {product} />
@@ -97,8 +113,52 @@
 		font-weight: 700;
 	}
 
+	.spotlight {
+		display: none;
+		margin: 0 0 1.25rem;
+	}
+
+	.spotlight-head {
+		display: flex;
+		align-items: end;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 0.8rem;
+	}
+
+	.spotlight h2 {
+		margin: 0;
+		font-size: 1.1rem;
+		line-height: 1.2;
+	}
+
+	.spotlight span {
+		color: var(--color-muted);
+		font-size: 0.85rem;
+		font-weight: 700;
+		white-space: nowrap;
+	}
+
+	.spotlight-rail {
+		display: grid;
+		grid-auto-columns: minmax(156px, 42vw);
+		grid-auto-flow: column;
+		gap: 0.8rem;
+		overflow-x: auto;
+		overscroll-behavior-inline: contain;
+		padding: 0 0 0.9rem;
+		scroll-snap-type: inline mandatory;
+		scrollbar-width: thin;
+	}
+
+	.spotlight-item {
+		min-width: 0;
+		scroll-snap-align: start;
+	}
+
 	.product-grid {
 		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 1rem;
 	}
 
@@ -110,6 +170,29 @@
 	@media (min-width: 768px) {
 		.product-grid {
 			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (max-width: 767px) {
+		.spotlight {
+			display: block;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.product-grid {
+			gap: 0.7rem;
+		}
+
+		.spotlight-head {
+			align-items: start;
+			flex-direction: column;
+			gap: 0.25rem;
+		}
+
+		.spotlight-rail {
+			grid-auto-columns: minmax(148px, 44vw);
+			gap: 0.7rem;
 		}
 	}
 </style>
