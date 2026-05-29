@@ -245,16 +245,7 @@
 		}
 	];
 
-	const heroSlides: Product[] = [
-		{
-			image: 'alkesduaputry_002_Distributor-Alat-Kesehatan-Konsultasi-001.png',
-			name: 'Konsultasi alat kesehatan Dua Putry Medika'
-		},
-		...hospitalBeds,
-		...sofas,
-		...furniture,
-		...wheelchairs
-	];
+	const heroSlides: Product[] = [...hospitalBeds, ...sofas, ...furniture, ...wheelchairs];
 
 	const heroSliderTrack = [...heroSlides, ...heroSlides];
 </script>
@@ -448,7 +439,11 @@
 		position: relative;
 		overflow: hidden;
 		padding: 72px 0 0;
-		background: linear-gradient(135deg, #102f59 0%, #1a3c6e 58%, #12305a 100%);
+		background:
+			linear-gradient(90deg, rgba(18, 100, 183, 0.88) 0%, rgba(28, 127, 216, 0.72) 48%, rgba(45, 138, 78, 0.5) 100%),
+			url('https://files.alkesduaputry.com/alkesduaputry/alkesduaputry_013_WEBSITE-4.png')
+				right center / contain no-repeat,
+			linear-gradient(135deg, #1976c9 0%, #2b9af3 55%, #54b8ff 100%);
 		color: #ffffff;
 	}
 
@@ -552,7 +547,7 @@
 		width: 100%;
 		margin-top: 3rem;
 		padding: 1rem 0 1.25rem;
-		background: rgba(255, 255, 255, 0.1);
+		background: rgba(255, 255, 255, 0.16);
 		backdrop-filter: blur(10px);
 	}
 
@@ -569,12 +564,12 @@
 
 	.hero-slider::before {
 		left: 0;
-		background: linear-gradient(90deg, #1a3c6e 0%, rgba(26, 60, 110, 0) 100%);
+		background: linear-gradient(90deg, #1976c9 0%, rgba(25, 118, 201, 0) 100%);
 	}
 
 	.hero-slider::after {
 		right: 0;
-		background: linear-gradient(270deg, #1a3c6e 0%, rgba(26, 60, 110, 0) 100%);
+		background: linear-gradient(270deg, #2b9af3 0%, rgba(43, 154, 243, 0) 100%);
 	}
 
 	.hero-slider-track {
