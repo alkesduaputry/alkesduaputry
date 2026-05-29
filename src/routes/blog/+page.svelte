@@ -4,6 +4,11 @@
 
 <svelte:head>
 	<title>Blog | AlkesDuaPutry</title>
+	<meta
+		name="description"
+		content="Artikel dan insight AlkesDuaPutry seputar pengadaan alat kesehatan non-obat, hospital furniture, dan kebutuhan fasilitas kesehatan."
+	/>
+	<link rel="canonical" href="https://alkesduaputry.com/blog" />
 </svelte:head>
 
 <section class="section">

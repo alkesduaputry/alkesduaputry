@@ -3,18 +3,58 @@
 	import brandIcon from '$lib/assets/brand-icon.png';
 	import Footer from '$lib/components/Footer.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
-	import { whatsappBase } from '$lib/data/products';
+	import { SITE_URL, whatsappBase } from '$lib/data/products';
 
 	let { children } = $props();
 
 	const catalogWhatsapp =
 		'https://api.whatsapp.com/send?phone=6285780199904&text=Halo,%20saya%20ingin%20minta%20katalog%20produk%20AlkesDuaPutry.';
+
+	const organizationSchema = {
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: 'AlkesDuaPutry',
+		legalName: 'PT Mitra Medika Farma',
+		url: SITE_URL,
+		logo: `${SITE_URL}/favicon.png`,
+		image: `${SITE_URL}/favicon.png`,
+		email: 'alkesduaputry@gmail.com',
+		telephone: '+62 857-8019-9904',
+		address: {
+			'@type': 'PostalAddress',
+			streetAddress: 'Ruko Asera Blok 1S 20 No.17, Harapan Indah',
+			addressLocality: 'Bekasi',
+			addressRegion: 'Jawa Barat',
+			addressCountry: 'ID'
+		},
+		contactPoint: [
+			{
+				'@type': 'ContactPoint',
+				telephone: '+62 857-8019-9904',
+				contactType: 'customer service',
+				areaServed: 'ID',
+				availableLanguage: ['id']
+			}
+		]
+	};
+
+	const websiteSchema = {
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: 'AlkesDuaPutry',
+		alternateName: 'Alkes Dua Putry',
+		url: SITE_URL,
+		publisher: {
+			'@type': 'Organization',
+			name: 'AlkesDuaPutry'
+		}
+	};
 </script>
 
 <svelte:head>
-	<link rel="icon" type="image/png" href={brandIcon} />
-	<link rel="apple-touch-icon" href={brandIcon} />
 	<title>AlkesDuaPutry | Distributor Alat Kesehatan</title>
+	<script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+	<script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
 </svelte:head>
 
 <Navbar />

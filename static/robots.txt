@@ -1,3 +1,5 @@
-# allow crawling everything by default
+# Allow public pages and keep admin pages out of search indexes.
 User-agent: *
-Disallow:
+Disallow: /admin/
+
+Sitemap: https://alkesduaputry.com/sitemap.xml

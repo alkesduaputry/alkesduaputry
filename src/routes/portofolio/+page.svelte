@@ -4,6 +4,11 @@
 
 <svelte:head>
 	<title>Portofolio | AlkesDuaPutry</title>
+	<meta
+		name="description"
+		content="Portofolio dukungan pengadaan AlkesDuaPutry untuk hospital furniture, trolley medis, lemari instrumen, dan perlengkapan klinik atau rumah sakit."
+	/>
+	<link rel="canonical" href="https://alkesduaputry.com/portofolio" />
 </svelte:head>
 
 <section class="section">

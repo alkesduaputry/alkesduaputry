@@ -232,7 +232,11 @@ export function catalogItemToProduct(item: CatalogDbItem): Product | null {
 	};
 }
 
-export async function getCatalogItems(event: RequestEvent, status: CatalogStatusFilter = 'needs_review') {
+export async function getCatalogItems(
+	event: RequestEvent,
+	status: CatalogStatusFilter = 'needs_review',
+	limit = 100
+) {
 	const db = getDb(event);
 	if (!db) return [];
 
@@ -241,27 +245,27 @@ export async function getCatalogItems(event: RequestEvent, status: CatalogStatus
 ${baseSelect}
 ${where}
 ORDER BY i.page_number ASC, i.item_index ASC
-LIMIT 100
+LIMIT ?
 `);
 	const { results } =
 		status === 'all'
-			? await statement.all<CatalogDbItem>()
-			: await statement.bind(status).all<CatalogDbItem>();
+			? await statement.bind(limit).all<CatalogDbItem>()
+			: await statement.bind(status, limit).all<CatalogDbItem>();
 
 	return results as CatalogDbItem[];
 }
 
-export async function getApprovedCatalogItems(event: RequestEvent) {
+export async function getApprovedCatalogItems(event: RequestEvent, limit = 1000) {
 	try {
-		const items = await getCatalogItems(event, 'approved');
+		const items = await getCatalogItems(event, 'approved', limit);
 		return items.map(catalogItemToProduct).filter((product): product is Product => Boolean(product));
 	} catch {
 		return [];
 	}
 }
 
-export async function getApprovedCatalogCategories(event: RequestEvent) {
-	const products = await getApprovedCatalogItems(event);
+export async function getApprovedCatalogCategories(event: RequestEvent, limit = 1000) {
+	const products = await getApprovedCatalogItems(event, limit);
 	const counts = new Map<string, number>();
 
 	for (const product of products) {
