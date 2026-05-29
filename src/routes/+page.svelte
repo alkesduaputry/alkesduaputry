@@ -440,9 +440,9 @@
 		overflow: hidden;
 		padding: 72px 0 0;
 		background:
-			linear-gradient(90deg, rgba(18, 100, 183, 0.88) 0%, rgba(28, 127, 216, 0.72) 48%, rgba(45, 138, 78, 0.5) 100%),
+			linear-gradient(180deg, rgba(18, 100, 183, 0.82) 0%, rgba(28, 127, 216, 0.7) 44%, rgba(45, 138, 78, 0.42) 100%),
 			url('https://files.alkesduaputry.com/alkesduaputry/alkesduaputry_013_WEBSITE-4.png')
-				right center / contain no-repeat,
+				right 1rem top 5.5rem / min(92vw, 430px) auto no-repeat,
 			linear-gradient(135deg, #1976c9 0%, #2b9af3 55%, #54b8ff 100%);
 		color: #ffffff;
 	}
@@ -470,6 +470,11 @@
 		display: grid;
 		gap: 1.2rem;
 		max-width: 760px;
+		padding: 1.25rem;
+		border: 1px solid rgba(255, 255, 255, 0.16);
+		border-radius: 8px;
+		background: rgba(13, 72, 132, 0.46);
+		backdrop-filter: blur(8px);
 	}
 
 	.hero-eyebrow {
@@ -817,6 +822,18 @@
 
 		.hero-section {
 			padding: 104px 0 0;
+			background:
+				linear-gradient(90deg, rgba(18, 100, 183, 0.88) 0%, rgba(28, 127, 216, 0.72) 48%, rgba(45, 138, 78, 0.5) 100%),
+				url('https://files.alkesduaputry.com/alkesduaputry/alkesduaputry_013_WEBSITE-4.png')
+					right center / contain no-repeat,
+				linear-gradient(135deg, #1976c9 0%, #2b9af3 55%, #54b8ff 100%);
+		}
+
+		.hero-copy {
+			padding: 0;
+			border: 0;
+			background: transparent;
+			backdrop-filter: none;
 		}
 	}
 
