@@ -10,7 +10,7 @@
 	type Feature = {
 		title: string;
 		copy: string;
-		icon: string;
+		image: string;
 	};
 
 	type Testimonial = {
@@ -26,164 +26,164 @@
 		{
 			title: 'Tim Profesional 24/7',
 			copy: 'Admin siap membantu konsultasi kebutuhan alat kesehatan dan hospital furniture.',
-			icon: '24'
+			image: 'alkesduaputry_003_Sales-Icon-01.png'
 		},
 		{
 			title: 'Harga Bersaing & Ready Stock',
 			copy: 'Pilihan produk disiapkan untuk kebutuhan pengadaan yang cepat dan efisien.',
-			icon: 'Rp'
+			image: 'alkesduaputry_004_Harga-Bersaing-Icon-1.png'
 		},
 		{
 			title: 'Jangkauan se-Indonesia',
 			copy: 'Pengiriman dapat dikoordinasikan untuk klinik, rumah sakit, dan fasilitas kesehatan.',
-			icon: 'ID'
+			image: 'alkesduaputry_005_Indonesia-Icon-05.png'
 		},
 		{
 			title: 'Gratis Ongkir & Pemasangan',
 			copy: 'Untuk produk dan area tertentu, tim kami bantu koordinasi pengiriman serta instalasi.',
-			icon: 'GO'
+			image: 'alkesduaputry_006_Pengiriman-Icon-01.png'
 		},
 		{
 			title: 'After Sales Service',
 			copy: 'Dukungan purna jual tersedia agar operasional fasilitas kesehatan tetap berjalan.',
-			icon: 'AS'
+			image: 'alkesduaputry_007_After-Sales-Icon-01.png'
 		},
 		{
 			title: 'Garansi Kepuasan Pelanggan',
 			copy: 'Setiap transaksi dikonfirmasi dengan jelas mulai dari stok, spesifikasi, hingga pengiriman.',
-			icon: 'OK'
+			image: 'alkesduaputry_008_Garansi-Icon-01.png'
 		}
 	];
 
 	const hospitalBeds: Product[] = [
 		{
-			image: 'alkesduaputry_008_Untitled-design-34.png',
+			image: 'alkesduaputry_009_Untitled-design-34.png',
 			name: 'Bed Pasien Manual 1 Crank'
 		},
 		{
-			image: 'alkesduaputry_009_Untitled-design-21-1.png',
+			image: 'alkesduaputry_010_Untitled-design-21-1.png',
 			name: 'Bed Pasien Manual 2 Crank'
 		},
 		{
-			image: 'alkesduaputry_010_WEBSITE-2.png',
+			image: 'alkesduaputry_011_WEBSITE-2.png',
 			name: 'Bed Pasien Manual 3 Crank'
 		},
 		{
-			image: 'alkesduaputry_011_WEBSITE-19.png',
+			image: 'alkesduaputry_012_WEBSITE-19.png',
 			name: 'Bed Pasien Manual 3 Crank Kupu'
 		},
 		{
-			image: 'alkesduaputry_012_WEBSITE-4.png',
+			image: 'alkesduaputry_013_WEBSITE-4.png',
 			name: 'Bed Pasien Elektrik 3 Motors'
 		},
 		{
-			image: 'alkesduaputry_013_WEBSITE-13.png',
+			image: 'alkesduaputry_014_WEBSITE-13.png',
 			name: 'Bed Pasien Elektrik Railing'
 		},
 		{
-			image: 'alkesduaputry_014_7.png',
+			image: 'alkesduaputry_015_7.png',
 			name: 'Ambulance Transfer Stretcher'
 		},
 		{
-			image: 'alkesduaputry_015_BED-3-CRANK-2.png',
+			image: 'alkesduaputry_016_BED-3-CRANK-2.png',
 			name: 'Bed Pasien Elektrik Kupu-kupu'
 		},
 		{
-			image: 'alkesduaputry_016_BED-3-CRANK-1.png',
+			image: 'alkesduaputry_017_BED-3-CRANK-1.png',
 			name: 'Bed Pasien Elektrik Jari'
 		},
 		{
-			image: 'alkesduaputry_017_Untitled-design-2025-01-09T115403.501.png',
+			image: 'alkesduaputry_018_Untitled-design-2025-01-09T115403.501.png',
 			name: 'Ambulance Transfer Stretcher Orange'
 		},
 		{
-			image: 'alkesduaputry_018_Untitled-design-98.png',
+			image: 'alkesduaputry_019_Untitled-design-98.png',
 			name: 'Brankar Bed IGD'
 		},
 		{
-			image: 'alkesduaputry_019_MEJA-PERIKSA-STANDARD-001.png',
+			image: 'alkesduaputry_020_MEJA-PERIKSA-STANDARD-001.png',
 			name: 'Meja Periksa Standard'
 		},
 		{
-			image: 'alkesduaputry_020_MEJA-PERIKSA-ADVANCE-001.png',
+			image: 'alkesduaputry_021_MEJA-PERIKSA-ADVANCE-001.png',
 			name: 'Meja Periksa Advance'
 		},
 		{
-			image: 'alkesduaputry_021_MATRAS-IMPORT-MEDIUM-PREMIUM-001.png',
+			image: 'alkesduaputry_022_MATRAS-IMPORT-MEDIUM-PREMIUM-001.png',
 			name: 'Matras Import Medium & Premium'
 		},
 		{
-			image: 'alkesduaputry_022_THT-INSTRUMENT-SET-1.png',
+			image: 'alkesduaputry_023_THT-INSTRUMENT-SET-1.png',
 			name: 'Kasur Anti Decubitus'
 		},
 		{
-			image: 'alkesduaputry_023_Meja-Tensi-Rumah-Sakit-SkrinMe-01.png',
+			image: 'alkesduaputry_024_Meja-Tensi-Rumah-Sakit-SkrinMe-01.png',
 			name: 'Meja Tensi'
 		},
 		{
-			image: 'alkesduaputry_024_Baby-Table-Standard-SkrinMe-001.png',
+			image: 'alkesduaputry_025_Baby-Table-Standard-SkrinMe-001.png',
 			name: 'Baby Table Standard'
 		},
 		{
-			image: 'alkesduaputry_025_BOX-RANJANG-BAYI.png',
+			image: 'alkesduaputry_026_BOX-RANJANG-BAYI.png',
 			name: 'Box Bayi & Ranjang Anak'
 		},
 		{
-			image: 'alkesduaputry_026_Untitled-design-38.png',
+			image: 'alkesduaputry_027_Untitled-design-38.png',
 			name: 'Bed Partus & Pijakan'
 		},
 		{
-			image: 'alkesduaputry_027_BED-GYNEKOLOG-MEJA-GYNEKOLOG-001.png',
+			image: 'alkesduaputry_028_BED-GYNEKOLOG-MEJA-GYNEKOLOG-001.png',
 			name: 'Bed & Meja Gynekolog'
 		},
 		{
-			image: 'alkesduaputry_028_MEJA-OPERASI-BED-OBGYN-001.png',
+			image: 'alkesduaputry_029_MEJA-OPERASI-BED-OBGYN-001.png',
 			name: 'Meja Operasi & Bed Obgyn'
 		}
 	];
 
 	const sofas: Product[] = [
 		{
-			image: 'alkesduaputry_029_Kursi-Hemodialisa-Cuci-Darah-SkrinMe-02.png',
+			image: 'alkesduaputry_030_Kursi-Hemodialisa-Cuci-Darah-SkrinMe-02.png',
 			name: 'Kursi Hemodialisa'
 		},
 		{
-			image: 'alkesduaputry_030_Sofa-Donor-Kursi-Donor.png',
+			image: 'alkesduaputry_031_Sofa-Donor-Kursi-Donor.png',
 			name: 'Sofa Donor & Kursi Donor'
 		}
 	];
 
 	const furniture: Product[] = [
 		{
-			image: 'alkesduaputry_031_overbedtavle.png',
+			image: 'alkesduaputry_032_overbedtavle.png',
 			name: 'Meja Bed Pasien / Overbed Table'
 		},
 		{
-			image: 'alkesduaputry_032_bedside-5.png',
+			image: 'alkesduaputry_033_bedside-5.png',
 			name: 'Lemari Barang / Bedside Cabinet'
 		},
 		{
-			image: 'alkesduaputry_033_TIANG-INFUS-RODA-3-CANTEL-001.png',
+			image: 'alkesduaputry_034_TIANG-INFUS-RODA-3-CANTEL-001.png',
 			name: 'Tiang Infus Roda 3 Cantel'
 		},
 		{
-			image: 'alkesduaputry_034_Untitled-design-2023-10-10T163403.359.png',
+			image: 'alkesduaputry_035_Untitled-design-2023-10-10T163403.359.png',
 			name: 'Lemari Instrument 1 & 2 Pintu'
 		},
 		{
-			image: 'alkesduaputry_035_Lemari-Narkotik-Rumah-Sakit-SkrinMe-01.png',
+			image: 'alkesduaputry_036_Lemari-Narkotik-Rumah-Sakit-SkrinMe-01.png',
 			name: 'Lemari Narkotik Kecil'
 		},
 		{
-			image: 'alkesduaputry_036_Bed-Screen-Rumah-Sakit-SkrinMe-001.png',
+			image: 'alkesduaputry_037_Bed-Screen-Rumah-Sakit-SkrinMe-001.png',
 			name: 'Bed Screen Rumah Sakit'
 		},
 		{
-			image: 'alkesduaputry_037_TROLLEY-EMERGENCY-001.png',
+			image: 'alkesduaputry_038_TROLLEY-EMERGENCY-001.png',
 			name: 'Trolley Emergency'
 		},
 		{
-			image: 'alkesduaputry_038_Untitled-design-2023-10-10T173431.088.png',
+			image: 'alkesduaputry_039_Untitled-design-2023-10-10T173431.088.png',
 			name: 'Instrument Trolley'
 		},
 		{
@@ -244,6 +244,19 @@
 			copy: 'Kursi treatment yang kami konsultasikan sesuai dengan kebutuhan layanan. Proses follow up setelah barang diterima juga membantu.'
 		}
 	];
+
+	const heroSlides: Product[] = [
+		{
+			image: 'alkesduaputry_002_Distributor-Alat-Kesehatan-Konsultasi-001.png',
+			name: 'Konsultasi alat kesehatan Dua Putry Medika'
+		},
+		...hospitalBeds,
+		...sofas,
+		...furniture,
+		...wheelchairs
+	];
+
+	const heroSliderTrack = [...heroSlides, ...heroSlides];
 </script>
 
 <svelte:head>
@@ -271,9 +284,37 @@
 				<a class="cta-button cta-secondary" href="#produk">Lihat Produk</a>
 			</div>
 		</div>
-		<div class="hero-card" aria-label="Ringkasan layanan Dua Putry Medika">
-			<strong>alkesduaputry.com</strong>
-			<span>Hospital bed, kursi roda, trolley, dan furniture medis untuk pengadaan profesional.</span>
+		<div class="hero-visual" aria-label="Slider produk unggulan Dua Putry Medika">
+			<img
+				class="hero-main-image"
+				src={`${imageBase}alkesduaputry_002_Distributor-Alat-Kesehatan-Konsultasi-001.png`}
+				alt="Konsultasi distributor alat kesehatan Dua Putry Medika"
+				loading="lazy"
+			/>
+			<div class="hero-card">
+				<img
+					class="hero-logo"
+					src={`${imageBase}alkesduaputry_001_SkrinMe-Logo-2.png`}
+					alt="Logo Dua Putry Medika"
+					loading="lazy"
+				/>
+				<span>Hospital bed, kursi roda, trolley, dan furniture medis untuk pengadaan profesional.</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="hero-slider" aria-label="Slider gambar produk alat kesehatan">
+		<div class="hero-slider-track">
+			{#each heroSliderTrack as product}
+				<figure class="hero-slide">
+					<img
+						src={`${imageBase}${product.image}`}
+						alt={`Gambar ${product.name} Dua Putry Medika`}
+						loading="lazy"
+					/>
+					<figcaption>{product.name}</figcaption>
+				</figure>
+			{/each}
 		</div>
 	</div>
 </section>
@@ -287,7 +328,12 @@
 		<div class="feature-grid">
 			{#each features as feature}
 				<article class="feature-card">
-					<div class="feature-icon" aria-hidden="true">{feature.icon}</div>
+					<img
+						class="feature-icon"
+						src={`${imageBase}${feature.image}`}
+						alt={`Ikon ${feature.title}`}
+						loading="lazy"
+					/>
 					<h3>{feature.title}</h3>
 					<p>{feature.copy}</p>
 				</article>
@@ -401,11 +447,8 @@
 	.hero-section {
 		position: relative;
 		overflow: hidden;
-		padding: 72px 0 64px;
-		background:
-			linear-gradient(rgba(26, 60, 110, 0.88), rgba(26, 60, 110, 0.92)),
-			url('https://files.alkesduaputry.com/alkesduaputry/alkesduaputry_012_WEBSITE-4.png')
-				center / cover;
+		padding: 72px 0 0;
+		background: linear-gradient(135deg, #102f59 0%, #1a3c6e 58%, #12305a 100%);
 		color: #ffffff;
 	}
 
@@ -461,10 +504,27 @@
 		line-height: 1.8;
 	}
 
+	.hero-visual {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.hero-main-image {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 8px;
+		background: #ffffff;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+		object-fit: contain;
+		padding: 0.85rem;
+	}
+
 	.hero-card {
 		display: grid;
+		grid-template-columns: auto 1fr;
 		gap: 0.7rem;
-		max-width: 420px;
+		align-items: center;
 		padding: 1.35rem;
 		border: 1px solid rgba(255, 255, 255, 0.2);
 		border-radius: 8px;
@@ -472,13 +532,97 @@
 		backdrop-filter: blur(12px);
 	}
 
-	.hero-card strong {
-		font-size: 1.25rem;
+	.hero-logo {
+		width: 72px;
+		height: 72px;
+		border-radius: 8px;
+		background: #ffffff;
+		object-fit: contain;
+		padding: 0.35rem;
 	}
 
 	.hero-card span {
 		color: rgba(255, 255, 255, 0.82);
 		line-height: 1.65;
+	}
+
+	.hero-slider {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		margin-top: 3rem;
+		padding: 1rem 0 1.25rem;
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(10px);
+	}
+
+	.hero-slider::before,
+	.hero-slider::after {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		z-index: 2;
+		width: 64px;
+		content: '';
+		pointer-events: none;
+	}
+
+	.hero-slider::before {
+		left: 0;
+		background: linear-gradient(90deg, #1a3c6e 0%, rgba(26, 60, 110, 0) 100%);
+	}
+
+	.hero-slider::after {
+		right: 0;
+		background: linear-gradient(270deg, #1a3c6e 0%, rgba(26, 60, 110, 0) 100%);
+	}
+
+	.hero-slider-track {
+		display: flex;
+		width: max-content;
+		gap: 1rem;
+		animation: slide-products 80s linear infinite;
+	}
+
+	.hero-slider:hover .hero-slider-track {
+		animation-play-state: paused;
+	}
+
+	.hero-slide {
+		overflow: hidden;
+		width: 230px;
+		margin: 0;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: 8px;
+		background: #ffffff;
+		color: #1a3c6e;
+		box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
+	}
+
+	.hero-slide img {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: contain;
+		padding: 0.65rem;
+	}
+
+	.hero-slide figcaption {
+		min-height: 58px;
+		padding: 0.7rem 0.85rem 0.85rem;
+		border-top: 1px solid rgba(26, 60, 110, 0.1);
+		font-size: 0.88rem;
+		font-weight: 800;
+		line-height: 1.35;
+	}
+
+	@keyframes slide-products {
+		from {
+			transform: translateX(0);
+		}
+
+		to {
+			transform: translateX(calc(-50% - 0.5rem));
+		}
 	}
 
 	.cta-button,
@@ -566,15 +710,12 @@
 	}
 
 	.feature-icon {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
 		width: 3rem;
 		height: 3rem;
 		border-radius: 8px;
 		background: rgba(45, 138, 78, 0.12);
-		color: #2d8a4e;
-		font-weight: 900;
+		object-fit: contain;
+		padding: 0.45rem;
 	}
 
 	.feature-card h3,
@@ -680,7 +821,13 @@
 		}
 
 		.hero-section {
-			padding: 104px 0 96px;
+			padding: 104px 0 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-slider-track {
+			animation: none;
 		}
 	}
 </style>
