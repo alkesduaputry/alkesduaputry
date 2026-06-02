@@ -16,8 +16,8 @@
 		<span class="eyebrow">Portofolio</span>
 		<h1 class="section-title">Pengadaan alat kesehatan untuk klinik, rumah sakit, dan institusi.</h1>
 		<p class="section-copy">
-			Beberapa contoh kebutuhan yang kami dukung mencakup pengadaan hospital furniture, trolley
-			medis, lemari instrumen, dan peralatan penunjang ruang klinik atau rumah sakit.
+			Kebutuhan yang kami dukung mencakup pengadaan hospital furniture, trolley medis, lemari
+			instrumen, dan peralatan penunjang ruang klinik atau rumah sakit.
 		</p>
 		<div class="grid">
 			{#each portfolioItems as item, index}

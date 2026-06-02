@@ -17,8 +17,8 @@
 			<span class="eyebrow">Kontak</span>
 			<h1 class="section-title">Diskusikan kebutuhan alat kesehatan dan hospital furniture.</h1>
 			<p class="section-copy">
-				Untuk katalog, stok, harga terbaru, dokumen produk, dan estimasi pengiriman, hubungi admin
-				melalui WhatsApp atau email.
+				Untuk katalog, stok, harga terbaru, dokumen produk, estimasi pengiriman, pembayaran, dan
+				pengajuan retur, hubungi admin melalui WhatsApp atau email.
 			</p>
 		</div>
 		<div class="panel">
@@ -37,6 +37,10 @@
 			<div>
 				<strong>Jam Operasional</strong>
 				<p>Senin-Sabtu, 08.00-17.00 WIB</p>
+			</div>
+			<div>
+				<strong>Bantuan Pelanggan</strong>
+				<p>Pelanggan dapat bertanya tentang stok, harga, pengiriman, metode pembayaran, dan retur.</p>
 			</div>
 			<a class="btn btn-accent" href={whatsappBase} target="_blank" rel="noreferrer">Chat WhatsApp</a>
 		</div>

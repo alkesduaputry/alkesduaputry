@@ -25,8 +25,8 @@
 	];
 
 	const servicePoints = [
-		'Konsultasi kebutuhan produk untuk klinik, rumah sakit, laboratorium, dan pengadaan institusi.',
-		'Konfirmasi stok, spesifikasi, dokumen pendukung, garansi, dan estimasi pengiriman sebelum transaksi.',
+		'Informasi produk untuk kebutuhan klinik, rumah sakit, laboratorium, dan pengadaan institusi.',
+		'Konfirmasi stok, harga, spesifikasi, dokumen pendukung, garansi, dan estimasi pengiriman sebelum transaksi.',
 		'Koordinasi pengemasan dan pengiriman untuk produk besar, berat, atau rawan benturan.',
 		'Informasi produk disampaikan secara jelas tanpa klaim medis yang berlebihan.'
 	];
@@ -45,11 +45,12 @@
 	<div class="container hero-grid">
 		<div class="hero-copy">
 			<span class="eyebrow">Tentang Kami</span>
-			<h1>Partner pengadaan alat kesehatan yang rapi dan responsif.</h1>
+			<h1>Katalog dan penyedia produk alat kesehatan non-obat.</h1>
 			<p>
-				Alkes Dua Putry membantu kebutuhan alat kesehatan non-obat, hospital furniture, trolley
-				medis, lemari instrumen, serta perlengkapan klinik dan rumah sakit. Kami mendampingi
-				pelanggan dari pemilihan produk, konfirmasi dokumen, hingga koordinasi pengiriman.
+				Alkes Duaputry adalah katalog dan penyedia produk alat kesehatan yang membantu pelanggan
+				menemukan kebutuhan alat kesehatan, hospital furniture, disposable, dan perlengkapan medis
+				non-obat. Informasi produk ditampilkan secara transparan dan pelanggan dapat menghubungi
+				admin untuk konfirmasi stok, harga, dan pengiriman.
 			</p>
 			<div class="button-row">
 				<a class="btn btn-primary" href={whatsappBase} target="_blank" rel="noreferrer">Konsultasi Pengadaan</a>
@@ -71,14 +72,13 @@
 	<div class="container intro-grid">
 		<div>
 			<span class="eyebrow">Profil Perusahaan</span>
-			<h2 class="section-title">Fokus pada kebutuhan pengadaan medis non-obat.</h2>
+			<h2 class="section-title">Fokus pada kebutuhan alat kesehatan non-obat.</h2>
 		</div>
 		<div class="intro-copy">
 			<p>
-				Kami melayani pelanggan profesional yang membutuhkan produk dengan informasi jelas,
-				komunikasi cepat, dan proses transaksi yang tertata. Setiap permintaan dibantu melalui
-				pengecekan ketersediaan, spesifikasi produk, pilihan pengiriman, serta ketentuan garansi
-				yang berlaku.
+				Kami membantu pelanggan yang membutuhkan produk dengan informasi jelas dan proses
+				komunikasi yang tertata. Setiap permintaan dibantu melalui pengecekan ketersediaan,
+				spesifikasi produk, pilihan pengiriman, serta ketentuan garansi yang berlaku.
 			</p>
 			<p>
 				Untuk pengadaan dalam jumlah besar atau produk berukuran besar, tim kami membantu

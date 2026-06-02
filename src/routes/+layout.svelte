@@ -52,7 +52,7 @@
 </script>
 
 <svelte:head>
-	<title>AlkesDuaPutry | Distributor Alat Kesehatan</title>
+	<title>AlkesDuaPutry | Katalog Alat Kesehatan</title>
 	<script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
 	<script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
 </svelte:head>

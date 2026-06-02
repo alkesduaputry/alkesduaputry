@@ -1,6 +1,9 @@
 <svelte:head>
-	<title>Metode Pembayaran | Alkes Dua Putry</title>
-	<meta name="description" content="Informasi metode pembayaran dan konfirmasi transaksi Alkes Dua Putry." />
+	<title>Metode Pembayaran | Alkes Duaputry</title>
+	<meta
+		name="description"
+		content="Informasi metode pembayaran resmi untuk pembelian produk alat kesehatan di Alkes Duaputry."
+	/>
 	<link rel="canonical" href="https://alkesduaputry.com/metode-pembayaran" />
 </svelte:head>
 
@@ -9,16 +12,19 @@
 		<span class="eyebrow">Kebijakan</span>
 		<h1>Metode Pembayaran</h1>
 		<p>
-			Metode pembayaran dikonfirmasi oleh admin melalui penawaran atau invoice resmi. Pembayaran
-			dapat berupa transfer bank atau metode lain yang disetujui sebelum transaksi.
+			Pembayaran dilakukan setelah pelanggan menerima konfirmasi dari admin. Detail pesanan,
+			ketersediaan produk, biaya pengiriman, dan nilai tagihan akan diinformasikan sebelum transaksi
+			final.
 		</p>
 		<p>
-			Pelanggan diminta memastikan nama penerima, nomor rekening, nilai tagihan, dan nomor dokumen
-			sesuai dengan informasi resmi dari Alkes Dua Putry sebelum melakukan pembayaran.
+			Metode pembayaran mengikuti metode resmi yang diinformasikan admin melalui penawaran, invoice,
+			atau kanal komunikasi resmi Alkes Duaputry. Kami tidak mencantumkan metode pembayaran yang
+			belum tersedia atau belum dikonfirmasi.
 		</p>
 		<p>
-			Pesanan diproses sesuai ketentuan pembayaran, ketersediaan stok, dan jadwal pengiriman yang
-			telah dikonfirmasi.
+			Pelanggan disarankan memastikan nama penerima pembayaran, nomor rekening atau identitas
+			penerima, nilai tagihan, dan nomor dokumen sesuai dengan informasi resmi toko sebelum
+			melakukan pembayaran.
 		</p>
 	</div>
 </section>

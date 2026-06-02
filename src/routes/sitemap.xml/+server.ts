@@ -10,7 +10,7 @@ const staticPages = [
 	{ path: '/portofolio', priority: '0.6', changefreq: 'monthly' },
 	{ path: '/blog', priority: '0.5', changefreq: 'monthly' },
 	{ path: '/metode-pembayaran', priority: '0.4', changefreq: 'yearly' },
-	{ path: '/kebijakan-pengiriman', priority: '0.4', changefreq: 'yearly' },
+	{ path: '/pengiriman', priority: '0.4', changefreq: 'yearly' },
 	{ path: '/kebijakan-pengembalian', priority: '0.4', changefreq: 'yearly' },
 	{ path: '/kebijakan-privasi', priority: '0.3', changefreq: 'yearly' },
 	{ path: '/syarat-ketentuan', priority: '0.3', changefreq: 'yearly' }

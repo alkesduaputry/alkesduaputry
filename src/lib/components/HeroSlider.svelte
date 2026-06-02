@@ -17,37 +17,37 @@
 
 	const slides: Slide[] = [
 		{
-			title: 'Distributor Alat Kesehatan Berkualitas & Berizin Resmi',
+			title: 'Katalog Alat Kesehatan dan Hospital Furniture',
 			description:
-				'Pilihan hospital bed, hospital furniture, dan alat kesehatan untuk klinik, rumah sakit, laboratorium, serta institusi dengan layanan pengadaan cepat.',
+				'Pilihan hospital bed, hospital furniture, dan alat kesehatan non-obat untuk klinik, rumah sakit, laboratorium, serta institusi.',
 			background:
 				'radial-gradient(circle at top left, rgba(232,160,32,0.22), transparent 30%), linear-gradient(135deg, #0a5c8a 0%, #073f60 70%)',
-			accent: 'Bed pasien premium siap demo dan training',
-			visualLabel: 'Distribusi alat kesehatan resmi',
+			accent: 'Konfirmasi stok, harga, dan pengiriman melalui admin',
+			visualLabel: 'Katalog alat kesehatan AlkesDuaPutry',
 			image: 'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(8).jpeg',
 			secondaryText: 'Lihat Produk'
 		},
 		{
-			title: 'Produk Bundling Harga Lebih Murah',
+			title: 'Konsultasi Kebutuhan Produk',
 			description:
-				'Strategi pembelian bundling untuk menekan biaya pengadaan tanpa mengorbankan spesifikasi, kualitas, dan dukungan after sales.',
+				'Admin membantu pelanggan memilih produk sesuai kebutuhan fasilitas dan mengonfirmasi detail sebelum transaksi.',
 			background:
 				'linear-gradient(135deg, rgba(10,92,138,0.95), rgba(7,63,96,0.92)), repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 12px, transparent 12px 24px)',
-			accent: 'Paket hemat untuk kebutuhan bangsal dan laboratorium',
+			accent: 'Detail final mengikuti penawaran resmi',
 			visualLabel: 'Bundling produk dan perlengkapan',
 			image: 'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(7).jpeg',
 			secondaryText: 'Konsultasi Bundling'
 		},
 		{
-			title: 'Berizin Edar Resmi AKL & AKD',
+			title: 'Dokumen dan Spesifikasi Dikonfirmasi',
 			description:
-				'Produk tersertifikasi dengan pendampingan pengadaan dan ketersediaan dokumen untuk pembelian institusi maupun e-katalog.',
+				'Ketersediaan dokumen, spesifikasi, garansi, dan estimasi pengiriman dapat dikonfirmasi sebelum pemesanan.',
 			background:
 				'radial-gradient(circle at bottom right, rgba(232,160,32,0.24), transparent 28%), linear-gradient(135deg, #0d689b 0%, #073f60 78%)',
-			accent: 'S-IDAK dan CDAKB siap ditunjukkan saat dibutuhkan',
-			visualLabel: 'Izin edar dan sertifikasi',
+			accent: 'Informasi produk disampaikan tanpa klaim medis berlebihan',
+			visualLabel: 'Konfirmasi produk dan dokumen',
 			image: 'https://files.alkesduaputry.com/Slider/kegiatan%20Gudang%20Alkesduaputry%20(4).jpeg',
-			secondaryText: 'Lihat Sertifikasi'
+			secondaryText: 'Hubungi Admin'
 		}
 	];
 
@@ -116,7 +116,7 @@
 					style={`background:${slides[activeSlide].background};`}
 				>
 					<div class="copy">
-						<span class="eyebrow animate-line">Medical Supplier Jakarta & Bekasi</span>
+						<span class="eyebrow animate-line">AlkesDuaPutry Jakarta & Bekasi</span>
 						<h1 class="animate-line">{slides[activeSlide].title}</h1>
 						<p class="animate-line">{slides[activeSlide].description}</p>
 						<div class="button-row animate-line">
@@ -131,7 +131,7 @@
 					</div>
 					<div class="visual" aria-hidden="true">
 						<div class="visual-frame">
-							<div class="badge">AKL & AKD</div>
+							<div class="badge">Konfirmasi admin</div>
 							<div class="art">
 								<img
 									class="hero-photo"
@@ -145,7 +145,7 @@
 									</div>
 									<div class="meta">
 										<strong>{slides[activeSlide].visualLabel}</strong>
-										<span>PT Mitra Medika Farma • Sertifikasi siap verifikasi</span>
+										<span>PT Mitra Medika Farma - dokumen produk mengikuti ketersediaan</span>
 									</div>
 								</div>
 							</div>

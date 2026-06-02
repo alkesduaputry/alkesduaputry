@@ -24,35 +24,43 @@
 
 	const features: Feature[] = [
 		{
-			title: 'Tim Profesional 24/7',
-			copy: 'Admin siap membantu konsultasi kebutuhan alat kesehatan dan hospital furniture.',
+			title: 'Admin resmi tersedia',
+			copy: 'Admin membantu menjawab kebutuhan produk, stok, harga, pengiriman, dan retur melalui kanal resmi.',
 			image: 'alkesduaputry_003_Sales-Icon-01.png'
 		},
 		{
-			title: 'Harga Bersaing & Ready Stock',
-			copy: 'Pilihan produk disiapkan untuk kebutuhan pengadaan yang cepat dan efisien.',
+			title: 'Stok dikonfirmasi sebelum transaksi',
+			copy: 'Ketersediaan produk, harga, dan spesifikasi dikonfirmasi ulang sebelum pesanan diproses.',
 			image: 'alkesduaputry_004_Harga-Bersaing-Icon-1.png'
 		},
 		{
-			title: 'Jangkauan se-Indonesia',
-			copy: 'Pengiriman dapat dikoordinasikan untuk klinik, rumah sakit, dan fasilitas kesehatan.',
+			title: 'Pengiriman Indonesia',
+			copy: 'Pengiriman dapat dikoordinasikan sesuai alamat tujuan, jenis produk, dan layanan logistik yang tersedia.',
 			image: 'alkesduaputry_005_Indonesia-Icon-05.png'
 		},
 		{
-			title: 'Gratis Ongkir & Pemasangan',
-			copy: 'Untuk produk dan area tertentu, tim kami bantu koordinasi pengiriman serta instalasi.',
+			title: 'Ongkir dikonfirmasi',
+			copy: 'Biaya kirim dan kebutuhan packing diinformasikan sebelum transaksi final.',
 			image: 'alkesduaputry_006_Pengiriman-Icon-01.png'
 		},
 		{
-			title: 'After Sales Service',
-			copy: 'Dukungan purna jual tersedia agar operasional fasilitas kesehatan tetap berjalan.',
+			title: 'Kebijakan retur jelas',
+			copy: 'Syarat pengembalian barang, penukaran, dan refund tersedia untuk pelanggan.',
 			image: 'alkesduaputry_007_After-Sales-Icon-01.png'
 		},
 		{
-			title: 'Garansi Kepuasan Pelanggan',
-			copy: 'Setiap transaksi dikonfirmasi dengan jelas mulai dari stok, spesifikasi, hingga pengiriman.',
+			title: 'Informasi produk transparan',
+			copy: 'Informasi produk bersifat katalog dan detail final mengikuti konfirmasi admin atau penawaran resmi.',
 			image: 'alkesduaputry_008_Garansi-Icon-01.png'
 		}
+	];
+
+	const trustPoints = [
+		'Produk alat kesehatan terkurasi',
+		'Konfirmasi stok via admin',
+		'Pengiriman Indonesia',
+		'Kebijakan retur jelas',
+		'Kontak resmi tersedia'
 	];
 
 	const hospitalBeds: Product[] = [
@@ -229,19 +237,19 @@
 
 	const testimonials: Testimonial[] = [
 		{
-			name: 'Klinik Pratama Sehati',
-			role: 'Pengadaan ruang tindakan',
-			copy: 'Respons admin cepat dan spesifikasi produk dijelaskan dengan rapi. Bed pasien dan trolley yang kami pesan datang sesuai kebutuhan ruangan.'
+			name: 'Konfirmasi pesanan',
+			role: 'Sebelum transaksi',
+			copy: 'Admin membantu memastikan nama produk, harga, stok, spesifikasi utama, dan alamat pengiriman sebelum pesanan diproses.'
 		},
 		{
-			name: 'RSIA Bunda Medika',
-			role: 'Koordinator fasilitas',
-			copy: 'Tim Dua Putry Medika membantu menyesuaikan pilihan hospital furniture dengan alur kerja perawat. Komunikasi pengiriman juga jelas.'
+			name: 'Koordinasi pengiriman',
+			role: 'Produk kecil dan besar',
+			copy: 'Produk besar seperti hospital bed atau furniture dapat membutuhkan konfirmasi packing, armada, dan estimasi ongkir.'
 		},
 		{
-			name: 'Klinik Hemodialisa Mandiri',
-			role: 'Manajemen operasional',
-			copy: 'Kursi treatment yang kami konsultasikan sesuai dengan kebutuhan layanan. Proses follow up setelah barang diterima juga membantu.'
+			name: 'Dukungan setelah barang diterima',
+			role: 'Retur dan pemeriksaan',
+			copy: 'Pelanggan dapat menghubungi admin jika ada kerusakan saat diterima, salah kirim, atau ketidaksesuaian produk.'
 		}
 	];
 
@@ -251,10 +259,10 @@
 </script>
 
 <svelte:head>
-	<title>Dua Putry Medika | Distributor Alat Kesehatan Terpercaya</title>
+	<title>Alkes Duaputry | Katalog Alat Kesehatan dan Hospital Furniture</title>
 	<meta
 		name="description"
-		content="Dua Putry Medika adalah distributor alat kesehatan terpercaya untuk hospital bed, kursi roda, trolley medis, sofa rumah sakit, dan furniture fasilitas kesehatan."
+		content="Alkes Duaputry adalah katalog produk alat kesehatan non-obat, hospital furniture, disposable, trolley medis, dan perlengkapan fasilitas kesehatan."
 	/>
 	<link rel="canonical" href="https://alkesduaputry.com/" />
 </svelte:head>
@@ -262,11 +270,12 @@
 <section class="hero-section">
 	<div class="container hero-inner">
 		<div class="hero-copy">
-			<span class="eyebrow hero-eyebrow">Dua Putry Medika</span>
-			<h1>Distributor Alat Kesehatan Terpercaya</h1>
+			<span class="eyebrow hero-eyebrow">Alkes Duaputry</span>
+			<h1>Katalog alat kesehatan dan hospital furniture</h1>
 			<p>
-				Solusi pengadaan hospital furniture, bed pasien, kursi roda, trolley medis, dan kebutuhan
-				fasilitas kesehatan dengan konsultasi cepat melalui WhatsApp.
+				Temukan kebutuhan hospital furniture, bed pasien, kursi roda, trolley medis, disposable,
+				dan perlengkapan fasilitas kesehatan. Hubungi admin untuk konfirmasi stok, harga, dan
+				pengiriman.
 			</p>
 			<div class="button-row">
 				<a class="cta-button cta-primary" href={whatsappBase} target="_blank" rel="noreferrer">
@@ -279,17 +288,17 @@
 			<img
 				class="hero-main-image"
 				src={`${imageBase}alkesduaputry_002_Distributor-Alat-Kesehatan-Konsultasi-001.png`}
-				alt="Konsultasi distributor alat kesehatan Dua Putry Medika"
+				alt="Konsultasi katalog alat kesehatan Alkes Duaputry"
 				loading="lazy"
 			/>
 			<div class="hero-card">
 				<img
 					class="hero-logo"
 					src={`${imageBase}alkesduaputry_001_SkrinMe-Logo-2.png`}
-					alt="Logo Dua Putry Medika"
+				alt="Logo Alkes Duaputry"
 					loading="lazy"
 				/>
-				<span>Hospital bed, kursi roda, trolley, dan furniture medis untuk pengadaan profesional.</span>
+				<span>Hospital bed, kursi roda, trolley, disposable, dan furniture medis untuk kebutuhan fasilitas kesehatan.</span>
 			</div>
 		</div>
 	</div>
@@ -300,7 +309,7 @@
 				<figure class="hero-slide">
 					<img
 						src={`${imageBase}${product.image}`}
-						alt={`Gambar ${product.name} Dua Putry Medika`}
+						alt={`Gambar ${product.name} Alkes Duaputry`}
 						loading="lazy"
 					/>
 					<figcaption>{product.name}</figcaption>
@@ -310,11 +319,22 @@
 	</div>
 </section>
 
+<section class="trust-section">
+	<div class="container trust-grid" aria-label="Informasi kepercayaan pelanggan">
+		{#each trustPoints as point}
+			<div class="trust-item">
+				<span></span>
+				<strong>{point}</strong>
+			</div>
+		{/each}
+	</div>
+</section>
+
 <section class="section why-section">
 	<div class="container">
 		<div class="section-heading">
 			<span class="eyebrow">Mengapa Memilih Kami</span>
-			<h2>Dukungan lengkap untuk kebutuhan fasilitas kesehatan</h2>
+			<h2>Dukungan informasi untuk kebutuhan fasilitas kesehatan</h2>
 		</div>
 		<div class="feature-grid">
 			{#each features as feature}
@@ -376,8 +396,8 @@
 <section class="section">
 	<div class="container">
 		<div class="section-heading">
-			<span class="eyebrow">Testimoni</span>
-			<h2>Dipercaya oleh fasilitas kesehatan dan pengadaan klinik</h2>
+			<span class="eyebrow">Catatan Layanan</span>
+			<h2>Informasi penting sebelum pelanggan bertransaksi</h2>
 		</div>
 		<div class="testimonial-grid">
 			{#each testimonials as testimonial}
@@ -415,7 +435,7 @@
 			<article class="product-card">
 				<img
 					src={`${imageBase}${product.image}`}
-					alt={`Produk ${product.name} dari Dua Putry Medika`}
+					alt={`Produk ${product.name} dari Alkes Duaputry`}
 					loading="lazy"
 				/>
 				<div class="product-content">
@@ -683,6 +703,41 @@
 		background: #ffffff;
 	}
 
+	.trust-section {
+		padding: 1rem 0;
+		background: #ffffff;
+		border-bottom: 1px solid rgba(26, 60, 110, 0.1);
+	}
+
+	.trust-grid {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.trust-item {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.65rem;
+		align-items: center;
+		padding: 0.85rem 1rem;
+		border: 1px solid rgba(26, 60, 110, 0.12);
+		border-radius: 8px;
+		background: #f8fbff;
+	}
+
+	.trust-item span {
+		width: 0.72rem;
+		height: 0.72rem;
+		border-radius: 999px;
+		background: #2d8a4e;
+	}
+
+	.trust-item strong {
+		color: #1a3c6e;
+		font-size: 0.94rem;
+		line-height: 1.35;
+	}
+
 	.section-soft {
 		background: rgba(26, 60, 110, 0.05);
 	}
@@ -792,6 +847,10 @@
 	}
 
 	@media (min-width: 640px) {
+		.trust-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
 		.feature-grid,
 		.product-grid,
 		.testimonial-grid {
@@ -805,6 +864,10 @@
 	}
 
 	@media (min-width: 1024px) {
+		.trust-grid {
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+		}
+
 		.hero-inner,
 		.closing-inner {
 			grid-template-columns: 1.35fr 0.65fr;

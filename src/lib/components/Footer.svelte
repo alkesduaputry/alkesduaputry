@@ -17,7 +17,7 @@
 	const policyLinks = [
 		{ href: '/kebijakan-privasi', label: 'Kebijakan Privasi' },
 		{ href: '/syarat-ketentuan', label: 'Syarat & Ketentuan' },
-		{ href: '/kebijakan-pengiriman', label: 'Kebijakan Pengiriman' },
+		{ href: '/pengiriman', label: 'Pengiriman' },
 		{ href: '/kebijakan-pengembalian', label: 'Kebijakan Pengembalian' },
 		{ href: '/metode-pembayaran', label: 'Metode Pembayaran' }
 	];
@@ -35,8 +35,8 @@
 				</div>
 			</div>
 			<div class="certs">
-				<span>S-IDAK</span>
-				<span>CDAKB</span>
+				<span>Konfirmasi stok via admin</span>
+				<span>Kebijakan retur tersedia</span>
 			</div>
 		</div>
 

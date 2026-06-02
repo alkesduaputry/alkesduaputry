@@ -2,10 +2,10 @@
 	import { onMount } from 'svelte';
 
 	const items = [
-		{ icon: '👩‍⚕️', title: 'Tim Berpengalaman & Profesional' },
-		{ icon: '📦', title: 'Stok Lengkap & Selalu Ready' },
-		{ icon: '🛠️', title: 'Free Demo & Training Merakit Hospital Furniture' },
-		{ icon: '⚡', title: 'Penanganan Komplain Cepat' }
+		{ icon: 'CS', title: 'Admin resmi tersedia' },
+		{ icon: 'ST', title: 'Stok dikonfirmasi sebelum transaksi' },
+		{ icon: 'PG', title: 'Pengiriman dikonfirmasi sesuai tujuan' },
+		{ icon: 'RT', title: 'Kebijakan retur tersedia' }
 	];
 
 	let section: HTMLElement | null = null;
@@ -40,8 +40,8 @@
 
 <section class="section" bind:this={section}>
 	<div class="container">
-		<span class="eyebrow">Mengapa Kami Dipercaya</span>
-		<h2 class="section-title">Layanan yang responsif dengan dukungan tim yang paham kebutuhan alat kesehatan.</h2>
+		<span class="eyebrow">Kepercayaan Pelanggan</span>
+		<h2 class="section-title">Informasi transaksi dibuat jelas sebelum pelanggan melakukan pembayaran.</h2>
 		<div class="grid">
 			{#each items as item}
 				<article class="card advantage-card">

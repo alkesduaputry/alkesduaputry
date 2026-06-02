@@ -1,25 +1,20 @@
 <svelte:head>
-	<title>Kebijakan Pengiriman | Alkes Dua Putry</title>
-	<meta name="description" content="Kebijakan pengiriman alat kesehatan besar dan hospital furniture Alkes Dua Putry." />
-	<link rel="canonical" href="https://alkesduaputry.com/kebijakan-pengiriman" />
+	<title>Kebijakan Pengiriman | Alkes Duaputry</title>
+	<meta
+		name="description"
+		content="Informasi pengiriman produk alat kesehatan di Alkes Duaputry, termasuk area layanan, estimasi pengiriman, dan biaya kirim."
+	/>
+	<link rel="canonical" href="https://alkesduaputry.com/pengiriman" />
 </svelte:head>
 
 <section class="section">
 	<div class="container policy">
 		<span class="eyebrow">Kebijakan</span>
 		<h1>Kebijakan Pengiriman</h1>
+		<p>Halaman pengiriman utama tersedia di <a href="/pengiriman">/pengiriman</a>.</p>
 		<p>
 			Pengiriman produk dilakukan setelah stok, harga, alamat, kebutuhan packing, dan metode kirim
-			dikonfirmasi oleh admin. Produk besar dapat membutuhkan armada khusus, packing kayu, atau
-			asuransi pengiriman.
-		</p>
-		<p>
-			Estimasi waktu pengiriman bergantung pada lokasi, jenis produk, jadwal ekspedisi, dan kondisi
-			operasional. Risiko keterlambatan dari pihak ekspedisi akan dikomunikasikan kepada pelanggan.
-		</p>
-		<p>
-			Pelanggan wajib memeriksa kondisi kemasan dan produk saat diterima, lalu segera melaporkan
-			kerusakan atau ketidaksesuaian pesanan kepada admin.
+			dikonfirmasi oleh admin.
 		</p>
 	</div>
 </section>
