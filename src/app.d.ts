@@ -11,6 +11,7 @@ declare global {
 				DB: D1Database;
 				BUCKET: R2Bucket;
 				ADMIN_PASSWORD?: string;
+				MAINTENANCE?: string;
 			};
 		}
 	}
