@@ -2,7 +2,11 @@ import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// 🚧 GERBANG maintenance
-	if (event.platform?.env?.MAINTENANCE === 'true') {
+	const maintenanceMode = String(event.platform?.env?.MAINTENANCE ?? '')
+		.trim()
+		.toLowerCase();
+
+	if (['true', '1', 'yes', 'on'].includes(maintenanceMode)) {
 		return new Response(HALAMAN_TAGIHAN, {
 			status: 503,
 			headers: {
