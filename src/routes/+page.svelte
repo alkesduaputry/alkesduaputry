@@ -599,11 +599,11 @@
 	}
 
 	.campaign-arrow-prev {
-		left: max(1rem, calc((100vw - 1180px) / 2));
+		left: max(1rem, calc(50% - 330px));
 	}
 
 	.campaign-arrow-next {
-		right: max(1rem, calc((100vw - 1180px) / 2));
+		right: max(1rem, calc(50% - 330px));
 	}
 
 	.campaign-dots {
