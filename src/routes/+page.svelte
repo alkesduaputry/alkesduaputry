@@ -1,6 +1,29 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	const imageBase = 'https://files.alkesduaputry.com/alkesduaputry/';
 	const whatsappBase = 'https://wa.me/6285780199904';
+	const campaignSlides = Array.from(
+		{ length: 10 },
+		(_, index) =>
+			`https://files.alkesduaputry.com/Alkesduaputry%20Product%20(${index + 1}).jpeg`
+	);
+	let currentCampaignSlide = $state(0);
+	let campaignPaused = $state(false);
+
+	const showCampaignSlide = (index: number) => {
+		currentCampaignSlide = (index + campaignSlides.length) % campaignSlides.length;
+	};
+
+	onMount(() => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+		const interval = window.setInterval(() => {
+			if (!campaignPaused) showCampaignSlide(currentCampaignSlide + 1);
+		}, 5000);
+
+		return () => window.clearInterval(interval);
+	});
 
 	type Product = {
 		name: string;
@@ -267,6 +290,58 @@
 	<link rel="canonical" href="https://alkesduaputry.com/" />
 </svelte:head>
 
+<section
+	class="campaign-slider"
+	aria-roledescription="carousel"
+	aria-label="Produk unggulan Alkes Duaputry"
+	onmouseenter={() => (campaignPaused = true)}
+	onmouseleave={() => (campaignPaused = false)}
+	onfocusin={() => (campaignPaused = true)}
+	onfocusout={() => (campaignPaused = false)}
+>
+	<div class="campaign-stage">
+		{#key currentCampaignSlide}
+			<img
+				class="campaign-backdrop"
+				src={campaignSlides[currentCampaignSlide]}
+				alt=""
+				aria-hidden="true"
+			/>
+			<img
+				class="campaign-image"
+				src={campaignSlides[currentCampaignSlide]}
+				alt={`Produk unggulan Alkes Duaputry, slide ${currentCampaignSlide + 1} dari ${campaignSlides.length}`}
+				fetchpriority={currentCampaignSlide === 0 ? 'high' : 'auto'}
+			/>
+		{/key}
+
+		<button
+			class="campaign-arrow campaign-arrow-prev"
+			type="button"
+			onclick={() => showCampaignSlide(currentCampaignSlide - 1)}
+			aria-label="Tampilkan slide sebelumnya"
+		>‹</button>
+		<button
+			class="campaign-arrow campaign-arrow-next"
+			type="button"
+			onclick={() => showCampaignSlide(currentCampaignSlide + 1)}
+			aria-label="Tampilkan slide berikutnya"
+		>›</button>
+	</div>
+
+	<div class="campaign-dots" aria-label="Pilih slide">
+		{#each campaignSlides as _, index}
+			<button
+				class:active={index === currentCampaignSlide}
+				type="button"
+				onclick={() => showCampaignSlide(index)}
+				aria-label={`Tampilkan slide ${index + 1}`}
+				aria-current={index === currentCampaignSlide ? 'true' : undefined}
+			></button>
+		{/each}
+	</div>
+</section>
+
 <section class="hero-section">
 	<div class="container hero-inner">
 		<div class="hero-copy">
@@ -455,6 +530,124 @@
 {/snippet}
 
 <style>
+	.campaign-slider {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		background: #071b2b;
+	}
+
+	.campaign-stage {
+		position: relative;
+		display: grid;
+		place-items: center;
+		height: clamp(480px, 68vw, 720px);
+		overflow: hidden;
+	}
+
+	.campaign-backdrop {
+		position: absolute;
+		inset: -3rem;
+		z-index: -2;
+		width: calc(100% + 6rem);
+		height: calc(100% + 6rem);
+		object-fit: cover;
+		filter: blur(30px) brightness(0.42) saturate(0.9);
+		transform: scale(1.08);
+	}
+
+	.campaign-stage::after {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(90deg, rgba(7, 27, 43, 0.68), rgba(7, 27, 43, 0.1) 50%, rgba(7, 27, 43, 0.68));
+		content: '';
+	}
+
+	.campaign-image {
+		width: min(100%, 540px);
+		height: 100%;
+		object-fit: contain;
+		filter: drop-shadow(0 24px 44px rgba(0, 0, 0, 0.34));
+		animation: campaign-fade 0.5s ease both;
+	}
+
+	.campaign-arrow {
+		position: absolute;
+		top: 50%;
+		z-index: 2;
+		display: grid;
+		place-items: center;
+		width: 48px;
+		height: 48px;
+		border: 1px solid rgba(255, 255, 255, 0.42);
+		border-radius: 999px;
+		background: rgba(7, 27, 43, 0.64);
+		color: #ffffff;
+		font-size: 2rem;
+		line-height: 1;
+		cursor: pointer;
+		transform: translateY(-50%);
+		backdrop-filter: blur(10px);
+	}
+
+	.campaign-arrow:hover,
+	.campaign-arrow:focus-visible {
+		background: #1264b7;
+		outline: 3px solid rgba(255, 255, 255, 0.8);
+		outline-offset: 2px;
+	}
+
+	.campaign-arrow-prev {
+		left: max(1rem, calc((100vw - 1180px) / 2));
+	}
+
+	.campaign-arrow-next {
+		right: max(1rem, calc((100vw - 1180px) / 2));
+	}
+
+	.campaign-dots {
+		position: absolute;
+		bottom: 1rem;
+		left: 50%;
+		z-index: 3;
+		display: flex;
+		gap: 0.45rem;
+		padding: 0.5rem 0.65rem;
+		border-radius: 999px;
+		background: rgba(7, 27, 43, 0.58);
+		transform: translateX(-50%);
+		backdrop-filter: blur(10px);
+	}
+
+	.campaign-dots button {
+		width: 10px;
+		height: 10px;
+		padding: 0;
+		border: 0;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.48);
+		cursor: pointer;
+		transition: width 0.2s ease, background 0.2s ease;
+	}
+
+	.campaign-dots button.active {
+		width: 28px;
+		background: #ffffff;
+	}
+
+	@keyframes campaign-fade {
+		from {
+			opacity: 0;
+			transform: scale(0.985);
+		}
+
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
 	.hero-section {
 		position: relative;
 		overflow: hidden;
@@ -846,6 +1039,23 @@
 		color: #ffffff;
 	}
 
+	@media (max-width: 639px) {
+		.campaign-stage {
+			height: min(138vw, 620px);
+			min-height: 430px;
+		}
+
+		.campaign-image {
+			width: 100%;
+		}
+
+		.campaign-arrow {
+			width: 42px;
+			height: 42px;
+			font-size: 1.7rem;
+		}
+	}
+
 	@media (min-width: 640px) {
 		.trust-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -901,6 +1111,7 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
+		.campaign-image,
 		.hero-slider-track {
 			animation: none;
 		}
