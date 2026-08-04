@@ -61,8 +61,11 @@
 		<div class="hero-media">
 			<img src={galleryImages[0].src} alt={galleryImages[0].alt} />
 			<div class="media-badge">
-				<strong>PT Mitra Medika Farma</strong>
-				<span>Ruko Asera Blok 1S 20 No.17, Harapan Indah, Bekasi</span>
+				<strong>ALKES DUAPUTRY</strong>
+				<span>
+					JL. INDUSTRI BOJONG CONVEYOR RT, 01/04 Ds Tarikolot Kec. Citeureup Kab. Nogor
+					16810 Jawa Barat
+				</span>
 			</div>
 		</div>
 	</div>

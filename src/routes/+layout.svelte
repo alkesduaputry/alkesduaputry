@@ -13,18 +13,20 @@
 	const organizationSchema = {
 		'@context': 'https://schema.org',
 		'@type': 'Organization',
-		name: 'AlkesDuaPutry',
+		name: 'ALKES DUAPUTRY',
 		legalName: 'PT Mitra Medika Farma',
+		description: 'PRODUSEN DAN DISTRIBUTOR ALAT KESEHATAN RUMAH SAKIT',
 		url: SITE_URL,
 		logo: `${SITE_URL}/favicon.png`,
 		image: `${SITE_URL}/favicon.png`,
-		email: 'alkesduaputry@gmail.com',
+		email: 'wasuri627@gmail.com',
 		telephone: '+62 857-8019-9904',
 		address: {
 			'@type': 'PostalAddress',
-			streetAddress: 'Ruko Asera Blok 1S 20 No.17, Harapan Indah',
-			addressLocality: 'Bekasi',
-			addressRegion: 'Jawa Barat',
+			streetAddress: 'JL. INDUSTRI BOJONG CONVEYOR RT, 01/04',
+			addressLocality: 'Ds Tarikolot, Kec. Citeureup',
+			addressRegion: 'Kab. Nogor, Jawa Barat',
+			postalCode: '16810',
 			addressCountry: 'ID'
 		},
 		contactPoint: [
@@ -41,12 +43,12 @@
 	const websiteSchema = {
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
-		name: 'AlkesDuaPutry',
+		name: 'ALKES DUAPUTRY',
 		alternateName: 'Alkes Dua Putry',
 		url: SITE_URL,
 		publisher: {
 			'@type': 'Organization',
-			name: 'AlkesDuaPutry'
+			name: 'ALKES DUAPUTRY'
 		}
 	};
 </script>

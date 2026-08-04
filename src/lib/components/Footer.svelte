@@ -30,8 +30,12 @@
 				<img class="logo-mark" src={brandIcon} alt="Icon AlkesDuaPutry" />
 				<div>
 					<img class="brand-logo" src={brandLogo} alt="AlkesDuaPutry" />
-					<strong>PT MITRA MEDIKA FARMA</strong>
-					<p>Ruko Asera Blok 1S 20 No.17, Harapan Indah, Bekasi</p>
+					<strong>ALKES DUAPUTRY</strong>
+					<p>PRODUSEN DAN DISTRIBUTOR ALAT KESEHATAN RUMAH SAKIT</p>
+					<p>
+						JL. INDUSTRI BOJONG CONVEYOR RT, 01/04 Ds Tarikolot Kec. Citeureup Kab. Nogor
+						16810 Jawa Barat
+					</p>
 				</div>
 			</div>
 			<div class="certs">
@@ -66,7 +70,7 @@
 		<div class="contact">
 			<h3>Kontak</h3>
 			<a href={whatsappBase} target="_blank" rel="noreferrer">+62 857-8019-9904</a>
-			<a href="mailto:alkesduaputry@gmail.com">alkesduaputry@gmail.com</a>
+			<a href="mailto:wasuri627@gmail.com">wasuri627@gmail.com</a>
 		</div>
 	</div>
 	<div class="container disclaimer">
